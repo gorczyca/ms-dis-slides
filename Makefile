@@ -37,6 +37,10 @@ pdf:
 
 # MANIM_SLIDES_NO_REVERSE=1 PYTHONPATH=. manim slides/sem_video.py SemVideoScene -ql  
 
-# PYTHONPATH=. manim slides/sem_title SemTitleScene
 
+# build single slide
+# PYTHONPATH=. manim slides/sem_title.py SemTitleScene
+
+
+# merge to html
 # PYTHONPATH=. manim-slides SemTitleScene SemInitialScene SemMotivationScene SemCurrentPracticesScene SemRiskmanMethodScene SemGraphEncodingScene SemEncRules1Scene SemEncRules2Scene SemEncRules3Scene SemReasoningValidationScene SemMoreShaclScene SemRiskmanStatsScene SemHumanReadabilityScene SemVideoScene SemConclusionScene

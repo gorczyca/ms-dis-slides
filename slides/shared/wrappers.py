@@ -9,12 +9,18 @@ TEX_TEMPLATE_LOC = 'assets/preamble.tex'
 
 def get_tex_template():
     custom_template = TexTemplate()
+    custom_template.tex_compiler = 'xelatex'
+    custom_template.output_format = ".xdv"
+
+
     
     with open(TEX_TEMPLATE_LOC) as f:
         preamble = f.read()
         
         print(preamble)
         custom_template.add_to_preamble(preamble)
+        
+        # custom_template.tex_compiler = 'xelatex'
         
         return custom_template
 

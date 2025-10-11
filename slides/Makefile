@@ -23,12 +23,16 @@ html:
 pdf:
 	manim-slides convert $(MAIN_DECK) $(MAIN_DECK).pdf
 
-# Generic single slide build + show: underscore_case -> CamelCase
-# Single slide build + show
-.PHONY: %
 
+.PHONY: %
 %:
-	PYTHONPATH=. manim $(SLIDES_DIR)/$@.py $(shell echo $@ | sed -r 's/(^|_)([a-z])/\U\2/g')Scene && manim-slides $(shell echo $@ | sed -r 's/(^|_)([a-z])/\U\2/g')Scene
+	@lc=$$(echo $@ | tr '[:upper:]' '[:lower:]'); \
+	cap=$$(echo $@ | awk '{print toupper(substr($$0,1,1)) tolower(substr($$0,2))}'); \
+	PYTHONPATH=. manim slides/$$lc.py $$cap"Scene"; \
+	PYTHONPATH=. manim-slides $$cap"Scene"
+
+
+
 
 
 # manim slides all
