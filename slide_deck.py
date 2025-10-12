@@ -2,9 +2,9 @@ from manim import *
 
 from manim_slides import Slide
 
-from slides.sem_initial import SemInitial
+from slides.initial import Initial
 from slides.sem_riskman_method import SemRiskmanMethod
-from slides.title import SemTitle
+from slides.title import Title
 from slides.sem_motivation import SemMotivation
 from slides.sem_current_practices import SemCurrentPractices
 from slides.sem_enc_rules1 import SemEncRules1
