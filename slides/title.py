@@ -20,6 +20,13 @@ class Title(BaseSlide):
         bg.move_to(ORIGIN, aligned_edge=ORIGIN).scale(15).shift(RIGHT*1.25+UP*7)
         # bg.to_edge(UP)
 
+        # dispute = SVGMobject("img/aba.svg").scale_to_fit_height(3).move_to(ORIGIN)
+        # dispute = SVGMobject("img/aba_plain.svg")\
+            # .set_fill(opacity=1).set_stroke(width=1, opacity=1)\
+            # .scale_to_fit_width(1.5).next_to(bg, RIGHT, buff=1.5).shift(UP*0.25)
+
+
+
         s.add(bg)
 
 

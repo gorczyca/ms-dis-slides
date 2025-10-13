@@ -1,4 +1,8 @@
 # scenes.list  (one per line: <file> <SceneClass>)
 slides/title.py TitleScene
+slides/big_picture.py BigPictureScene
+slides/motivation.py MotivationScene
+slides/example_af.py ExampleAfScene
+slides/af_code.py AfCodeScene
 slides/evaluation1.py Evaluation1Scene
 slides/evaluation2.py Evaluation2Scene
