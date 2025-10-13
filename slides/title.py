@@ -48,7 +48,7 @@ class Title(BaseSlide):
             r'Advancing Argument Games \\ ' \
             r'through Multi-Shot Solving',
             # r'Advancing Argument Games through Multi-Shot Solving',
-            font_size=50, 
+            font_size=45, 
             color=WHITE,
             # tex_template=TexWrapper.TEX_TEMPLATE
         # ).next_to(title, DOWN, aligned_edge=LEFT, buff=0.0)  
