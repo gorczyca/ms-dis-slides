@@ -10,15 +10,21 @@ from slides.shared.slide_count import SLIDES, SLIDES_NO
 SLIDE_NO = SLIDES.index('Initial') + 1
 
 
+# 
+ASPFORABA_COLOR = '#2ca02c'
+MSDIS_COLOR = '#d41159'
+FLEXABLE_COLOR = '#1f77b4'
+
+
 ASP_FOR_ABA = 'aspforaba'
 FLEXABLE = 'flexABle'
 MS_DIS = 'MS-DIS'
-FLEXABLE_A_05 = 'flexABle a=.05'
-FLEXABLE_A_25 = 'flexABle a=.25'
-FLEXABLE_A_5 = 'flexABle a=.5'
-MS_DIS_A_5 = 'MS-DIS a=5'
-MS_DIS_A_10 = 'MS-DIS a=10'
-MS_DIS_A_25 = 'MS-DIS a=25'
+FLEXABLE_A_05 = ' flexABle a=.05 '
+FLEXABLE_A_25 = ' flexABle a=.25 '
+FLEXABLE_A_5 = ' flexABle a=.5 '
+MS_DIS_A_5 = ' MS-DIS a=5 '
+MS_DIS_A_10 = ' MS-DIS a=10 '
+MS_DIS_A_25 = ' MS-DIS a=25 '
 
 RESULT_PATHS = {
     ASP_FOR_ABA: 'results/aspforaba-adm_iccma_ver.csv',
@@ -48,23 +54,39 @@ def compute_pos(ax, x, y, x_at):
     return p
 
 
+def create_plot(df, ax, color, border_style, border_color, bg_color, fg_color, x_at, name):
+    x, y = df["duration"], df["X"]
+    plot = ax.plot_line_graph(
+        x, y,
+        stroke_width=1, line_color=color, add_vertex_dots=True,
+        vertex_dot_radius=0.03,
+        vertex_dot_style={"fill_color": color, "stroke_color": color, "stroke_width": 0.5},
+    )
 
-def curve_label(ax, x, y, x_at, text, bg=BLUE_E, fg=WHITE, font="Consolas", offset=UR*0.0,
+    # x_at = 510
+    label = curve_label(ax, x, y, x_at=x_at, text=name, border_style=border_style, border_color=border_color, bg=bg_color, fg=fg_color, offset=UR*0)
+
+    return plot, label
+
+
+
+def curve_label(ax, x, y, x_at, text, bg=BLUE_E, fg=WHITE, font="Cousine", offset=UR*0.0,
                 border_color=WHITE, border_width=2, border_style="solid"):
     p = compute_pos(ax, x, y, x_at)
-    lbl = Text(text, font_size=28, color=fg, font=font)
+    lbl = Text(text, font_size=28, color=fg, font=font, fill_opacity=1)
     w, h = lbl.width + 0.3, lbl.height + 0.2
 
-    fill_box = RoundedRectangle(corner_radius=0.15, width=w, height=h,
+    fill_box = RoundedRectangle(corner_radius=0.05, width=w, height=h,
                                 fill_color=bg, fill_opacity=1, stroke_width=0)
-    outline = RoundedRectangle(corner_radius=0.15, width=w, height=h,
-                               stroke_color=border_color, stroke_width=border_width, fill_opacity=1)
+    outline = RoundedRectangle(corner_radius=0.05, width=w, height=h,
+                               stroke_color=border_color, stroke_width=border_width)
     if border_style == "dotted":
         outline = DashedVMobject(outline, num_dashes=80, dashed_ratio=0.12)
     elif border_style == "dashed":
         outline = DashedVMobject(outline, num_dashes=30, dashed_ratio=0.5)
 
-    return VGroup(fill_box, outline, lbl).move_to(p).shift(offset)
+    g = VGroup(fill_box, outline, lbl).move_to(p).shift(offset).set_z_index(99)
+    return g
 
 
 
@@ -78,7 +100,7 @@ class Initial(BaseSlide):
         aspforaba_df = load_and_sort(RESULT_PATHS[ASP_FOR_ABA])
 
         flexable_df = load_and_sort(RESULT_PATHS[FLEXABLE])
-        msdis_df = load_and_sort(RESULT_PATHS[FLEXABLE])
+        msdis_df = load_and_sort(RESULT_PATHS[MS_DIS])
 
         #
         flexable_a_05_df = load_and_sort(RESULT_PATHS[FLEXABLE_A_05])
@@ -90,6 +112,8 @@ class Initial(BaseSlide):
         msdis_a_10_df = load_and_sort(RESULT_PATHS[MS_DIS_A_10])
         msdis_a_25_df = load_and_sort(RESULT_PATHS[MS_DIS_A_25])
 
+        # 1st set of plots
+        # create axes
         ax = Axes(
             x_range=[0, 610, 100],
             y_range=[0, 210, 100],
@@ -100,7 +124,7 @@ class Initial(BaseSlide):
         coords = ax.add_coordinates()
         coords.set_color(BLACK)
 
-
+        # add grid
         grid = NumberPlane(
             x_range=ax.x_range,
             y_range=ax.y_range,
@@ -112,25 +136,34 @@ class Initial(BaseSlide):
 
         grid.shift(ax.c2p(0, 0) - grid.c2p(0, 0))  # pin origins together
 
-
-
         s.play(Create(grid), Create(ax))
         s.next_slide()
 
-        flex_g_x, flex_g_y = flexable_df["duration"], flexable_df["X"]
-        flex_g = ax.plot_line_graph(
-            flex_g_x, flex_g_y,
-            stroke_width=3, line_color=BLUE_E, add_vertex_dots=True,
-            vertex_dot_radius=0.03,
-            vertex_dot_style={"fill_color": BLACK, "stroke_color": BLACK, "stroke_width": 1},
-        )
+        # draw flexable
+        # flex_g_x, flex_g_y = flexable_df["duration"], flexable_df["X"]
+        # flex_g = ax.plot_line_graph(
+        #     flex_g_x, flex_g_y,
+        #     stroke_width=3, line_color=BLUE_E, add_vertex_dots=True,
+        #     vertex_dot_radius=0.03,
+        #     vertex_dot_style={"fill_color": BLACK, "stroke_color": BLACK, "stroke_width": 1},
+        # )
+
+        # flex_g_x_at = 510
+        # flex_g_label = curve_label(ax, flex_g_x, flex_g_y, x_at=flex_g_x_at, text=FLEXABLE, border_style='solid', border_color=RED, bg=WHITE, fg=RED, offset=UR*0)
 
         flex_g_x_at = 510
-        flex_g_label = curve_label(ax, flex_g_x, flex_g_y, x_at=flex_g_x_at, text=FLEXABLE, border_style='solid', border_color=RED, bg=WHITE, fg=RED, offset=UR*0)
+        flex_plot, flex_label = create_plot(flexable_df, ax, color=FLEXABLE_COLOR, border_style='solid', border_color=FLEXABLE_COLOR, bg_color=FLEXABLE_COLOR, fg_color=WHITE, x_at=flex_g_x_at, name=FLEXABLE)
 
-
-        s.play(Create(flex_g), DrawBorderThenFill(flex_g_label))
+        s.play(Create(flex_plot['line_graph'], lag_ratio=1), Create(flex_plot['vertex_dots']), Create(flex_label))
         s.next_slide()
+
+        ms_dis_g_x_at = 540
+        msdis_plot, msdis_label = create_plot(msdis_df, ax, color=MSDIS_COLOR, border_style='solid', border_color=MSDIS_COLOR, bg_color=MSDIS_COLOR, fg_color=WHITE, x_at=ms_dis_g_x_at, name=MS_DIS)
+        s.play(Create(msdis_plot['line_graph'], lag_ratio=1), Create(msdis_plot['vertex_dots']), Create(msdis_label))
+        s.next_slide()
+
+        # draw msdis
+
 
 
 
@@ -154,24 +187,63 @@ class Initial(BaseSlide):
             background_line_style={"stroke_color": GRAY, "stroke_width": 1, "stroke_opacity": 0.25},
             axis_config={"stroke_opacity": 0},
         )
-
         new_grid.shift(new_ax.c2p(0, 0) - new_grid.c2p(0, 0))  # pin origins together        
 
-        # s.play(Create(grid), Create(ax))
+        # move existing plots
+        new_flex_plot, _ = create_plot(flexable_df, new_ax, color=FLEXABLE_COLOR, border_style='solid', border_color=FLEXABLE_COLOR, bg_color=FLEXABLE_COLOR, fg_color=WHITE, x_at=flex_g_x_at, name=FLEXABLE)
+        new_flex_label_position = compute_pos(new_ax, flexable_df['duration'], flexable_df['X'], flex_g_x_at)
+
+        new_msdis_plot, _ = create_plot(msdis_df, new_ax, color=MSDIS_COLOR, border_style='solid', border_color=MSDIS_COLOR, bg_color=MSDIS_COLOR, fg_color=WHITE, x_at=ms_dis_g_x_at, name=MS_DIS)
+        new_msdis_label_position = compute_pos(new_ax, msdis_df['duration'], msdis_df['X'], ms_dis_g_x_at)
 
 
-        new_g = new_ax.plot_line_graph(
-            flexable_df['duration'], flexable_df['X'], stroke_width=3, line_color=BLUE_E, add_vertex_dots=True,
-            vertex_dot_radius=0.03,
-            vertex_dot_style={"fill_color": BLACK, "stroke_color": BLACK},
-        )
+        # create aspforaba
+        aspforaba_g_x_at = 400
+        aspforaba_plot, aspforaba_label = create_plot(aspforaba_df, new_ax, color=ASPFORABA_COLOR, border_style='solid', border_color=ASPFORABA_COLOR, bg_color=ASPFORABA_COLOR, fg_color=WHITE, x_at=aspforaba_g_x_at, name=ASP_FOR_ABA)
 
-        # move label
-        new_flex_g_label_p = compute_pos(new_ax, flex_g_x, flex_g_y, flex_g_x_at)
 
-        s.play(Transform(ax, new_ax), FadeOut(grid), Create(new_grid),  Transform(flex_g, new_g), flex_g_label.animate.move_to(new_flex_g_label_p))
+        # transform everything to new scale
+        s.play(
+            Transform(ax, new_ax), 
+            FadeOut(grid), Create(new_grid), 
+            flex_label.animate.move_to(new_flex_label_position), Transform(flex_plot, new_flex_plot), 
+            msdis_label.animate.move_to(new_msdis_label_position), Transform(msdis_plot, new_msdis_plot), 
+            Create(aspforaba_plot['vertex_dots']), Create(aspforaba_plot['line_graph']), Create(aspforaba_label))
 
         s.next_slide()
+
+        # create approximate things
+        flexable_a_05_x_at = 120
+        flexable_a_05_plot, flexable_a_05_label = create_plot(flexable_a_05_df, new_ax, color=FLEXABLE_COLOR, border_style='dashed', border_color=FLEXABLE_COLOR, bg_color=WHITE, fg_color=FLEXABLE_COLOR, x_at=flexable_a_05_x_at, name=FLEXABLE_A_05)
+
+        flexable_a_25_x_at = 100
+        flexable_a_25_plot, flexable_a_25_label = create_plot(flexable_a_25_df, new_ax, color=FLEXABLE_COLOR, border_style='dashed', border_color=FLEXABLE_COLOR, bg_color=WHITE, fg_color=FLEXABLE_COLOR, x_at=flexable_a_25_x_at, name=FLEXABLE_A_25)
+
+        ms_dis_a_10_g_x_at = 550
+        ms_dis_a_10_plot, ms_dis_a_10_label = create_plot(msdis_a_10_df, new_ax, color=MSDIS_COLOR, border_style='dashed', border_color=MSDIS_COLOR, bg_color=WHITE, fg_color=MSDIS_COLOR, x_at=ms_dis_a_10_g_x_at, name=MS_DIS_A_10)
+
+        ms_dis_a_5_g_x_at = 265
+        ms_dis_a_5_plot, ms_dis_a_5_label = create_plot(msdis_a_05_df, new_ax, color=MSDIS_COLOR, border_style='dashed', border_color=MSDIS_COLOR, bg_color=WHITE, fg_color=MSDIS_COLOR, x_at=ms_dis_a_5_g_x_at, name=MS_DIS_A_5)
+
+        s.play(
+            Create(flexable_a_25_plot['line_graph'], lag_ratio=1), Create(flexable_a_25_plot['vertex_dots']), 
+            Create(flexable_a_25_label[0]), Create(flexable_a_25_label[1]), Write(flexable_a_25_label[2]), 
+            Create(ms_dis_a_10_plot['line_graph'], lag_ratio=1), Create(ms_dis_a_10_plot['vertex_dots']), 
+            Create(ms_dis_a_10_label[0]), Create(ms_dis_a_10_label[1]), Write(ms_dis_a_10_label[2])
+        )
+        s.next_slide()
+
+        s.play(
+            Create(flexable_a_05_plot['line_graph'], lag_ratio=1), Create(flexable_a_05_plot['vertex_dots']), 
+            Create(flexable_a_05_label[0]), Create(flexable_a_05_label[1]), Write(flexable_a_05_label[2]),
+            Create(ms_dis_a_5_plot['line_graph'], lag_ratio=1), Create(ms_dis_a_5_plot['vertex_dots']), 
+            Create(ms_dis_a_5_label[0]), Create(ms_dis_a_5_label[1]), Write(ms_dis_a_5_label[2]),  
+        )
+        s.next_slide()
+
+
+
+
         s.wait()
 
 
