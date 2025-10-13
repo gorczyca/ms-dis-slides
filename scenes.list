@@ -4,5 +4,10 @@ slides/big_picture.py BigPictureScene
 slides/motivation.py MotivationScene
 slides/example_af.py ExampleAfScene
 slides/af_code.py AfCodeScene
+slides/aba_background.py AbaBackgroundScene
+slides/aba_code.py AbaCodeScene
+slides/aba_example.py AbaExampleScene
 slides/evaluation1.py Evaluation1Scene
 slides/evaluation2.py Evaluation2Scene
+slides/conclusion.py ConclusionScene
+slides/extra.py ExtraScene

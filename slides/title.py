@@ -77,5 +77,5 @@ class Title(BaseSlide):
 # i.e. by only `manim slide2.py Slide2Scene`
 class TitleScene(Slide):  
     def construct(self):
-        Title(self, show_footer=False, slide_no=SLIDE_NO, slide_total=SLIDES_NO)
+        Title(self, show_footer=False, slide_no=SLIDE_NO, slide_total=SLIDES_NO, show_logo=False)
         self.wait()

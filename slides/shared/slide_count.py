@@ -31,4 +31,5 @@ SLIDES = [
     'Conclusion',
 ]
 
-SLIDES_NO = len(SLIDES)
+# SLIDES_NO = len(SLIDES)
+SLIDES_NO = 10

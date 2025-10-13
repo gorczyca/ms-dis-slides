@@ -235,7 +235,6 @@ class Evaluation1(BaseSlide):
             Create(ms_dis_a_5_label[0], run_time=RUN_TIME), Create(ms_dis_a_5_label[1], run_time=RUN_TIME), Write(ms_dis_a_5_label[2]),  
             # Create(ms_dis_a_5_label)  
         )
-        s.next_slide()
         s.wait()
 
 

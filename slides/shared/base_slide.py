@@ -23,7 +23,7 @@ class BaseSlide:
     
     TITLE_FONT_SIZE = 48
     
-    def __init__(self, slide: Slide, show_footer=True, slide_no=9, slide_total=99):
+    def __init__(self, slide: Slide, show_footer=True, slide_no=9, slide_total=99, show_logo=True):
         
         self.slide = slide
         slide.camera.background_color = self.BACKGROUND_COLOR  # White bg for all slides
@@ -31,14 +31,17 @@ class BaseSlide:
         if self.TITLE:
             _title = TexWrapper(self.TITLE, color=self.FONT_COLOR, font_size=self.TITLE_FONT_SIZE).to_corner(UL)
             slide.add(_title)
-            
-        if show_footer:
+
+        if show_logo:
             _tud_logo = ImageMobject("./img/logo/TUD_Logos_final_RGB_TUD_Bildmarke_blau.png").scale_to_fit_width(1).to_corner(UR).shift(.25*UP+.25*RIGHT)
+            slide.add(_tud_logo)
+
+        if show_footer:
             _slide_count = TexWrapper(f'{slide_no}/{slide_total}', font_size=self.FOOTER_FONT_SIZE, color=self.FONT_COLOR).to_corner(DR).shift(0.25*DOWN)
             _footer_title = TexWrapper(self.SHORT_TITLE, font_size=self.FOOTER_FONT_SIZE, color=self.FONT_COLOR).to_corner(DL).shift(0.25*DOWN)
             # _authors = TexWrapper(self.SHORT_AUTHORS, font_size=self.FOOTER_FONT_SIZE, color=self.FONT_COLOR).to_edge(DOWN).shift(0.25*DOWN).shift(4*RIGHT)
             _authors = TexWrapper(self.SHORT_AUTHORS, font_size=self.FOOTER_FONT_SIZE, color=self.FONT_COLOR).to_edge(DOWN).shift(0.25*DOWN)
-            slide.add(_slide_count, _authors, _footer_title, _tud_logo)
+            slide.add(_slide_count, _authors, _footer_title)
         
         self.create_content()
 
