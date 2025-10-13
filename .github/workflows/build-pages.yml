@@ -15,7 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: System deps
         run: |
           sudo apt-get update
@@ -24,8 +23,10 @@ jobs:
             libcairo2-dev libpango1.0-dev libglib2.0-dev libharfbuzz-dev \
             libfreetype6-dev libfontconfig1-dev libfribidi-dev \
             ffmpeg \
+            texlive-xetex latexmk \
             texlive-latex-base texlive-latex-recommended texlive-latex-extra \
-            texlive-fonts-extra texlive-science dvipng
+            texlive-fonts-extra texlive-science dvipng \
+            fonts-noto
 
       - name: Python
         uses: actions/setup-python@v5
