@@ -3,7 +3,7 @@ https://gorczyca.github.io/ms-dis-slides/
 
 ### Installation
 
-```
+```bash
 uv venv .venv   # create environment
 source .venv/bin/activate # activate environment 
 uv pip install "manim-slides[manim]" #  install manim / manim-slides
@@ -33,11 +33,27 @@ class SlideXScene(Slide):
         self.wait()
 ```
 then, to view this standalone slide run:
-```
+```bash
 make slide_x
 ```
-which should display the standalone slide. Make sure to follow the naming convention, script name in snake case, i.e. `my_first_slide.py`, then the main class name inside `MyFirstSlide` and for running standalone `MyFirstSlideScene` inside of the same script. For reference check [`slides/slide1.py`](slides/slide1.py).
+which should display the standalone slide. Make sure to follow the naming convention, script name in snake case, i.e. `my_first_slide.py`, then the main class name inside `MyFirstSlide` and for running standalone `MyFirstSlideScene` inside of the same script. For reference check [`slides/title.py`](slides/title.py).
 
-### Showing whole slide deck
-Run `make` in the main directory. Make sure to add your slide class in the [`slide_deck.py`](slide_deck,py) `main_slides` array.
+### What does `make` do?
+If you run `make some_file_name`, the following commands will be executed:
+```bash
+PYTHONPATH=. manim slides/some_file_name.py SomeFileNameScene  # build the SomeFileNameScene
+PYTHONPATH=. manim-slides SomeFuleNameScene                    # show SomeFileNameScene as slide show
+```
 
+### Showing whole slidedeck / converting to HTML
+Assume the following scenes have been built: `FirstScene`, `SecondScene`, ..., `NthScene` that constitute your entire slide deck. To combine them and run / convert to html / convert to pdf, execute (respectively):
+
+```sh
+PYTHONPATH=. manim-slides FirstScene SecondScene ... NthScene           # combine and show
+
+PYTHONPATH=. manim-slides convert FirstScene SecondScene ... NthScene slides.html  # combine and convert to HTML
+
+PYTHONPATH=. manim-slides convert FirstScene SecondScene ... NthScene slides.pdf  # combine and convert to PDF
+```
+
+where `slides.html` (`slides.pdf`) can be any filename with `*.html` file extension.
