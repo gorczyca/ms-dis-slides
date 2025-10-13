@@ -1,8 +1,7 @@
-# .github/workflows/build-pages.yml
 name: build-and-publish
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 permissions:
   pages: write
   id-token: write
@@ -15,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: System deps
         run: |
           sudo apt-get update
@@ -42,14 +42,13 @@ jobs:
 
       - name: Build slides + HTML
         run: |
-          chmod +x scripts/build_slides.sh
           source .venv/bin/activate
           ./scripts/build_slides.sh all --scenes-file scenes.list --site site --pythonpath .
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: site   # contains index.html (+ assets if not --one-file)
 
   deploy:
     needs: build

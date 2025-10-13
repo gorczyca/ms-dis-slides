@@ -1,18 +1,13 @@
-# scripts/build_slides.sh
 #!/usr/bin/env bash
 set -euo pipefail
-
-# Usage:
-#   ./scripts/build_slides.sh render|html|all \
-#     [--scenes-file scenes.list] [--site site] \
-#     [--pythonpath .] [--manim-flags "..."] [--slides-flags "..."]
 
 MODE="${1:-}"; shift || true
 SCENES_FILE="scenes.list"
 SITE="site"
 PYTHONPATH_IN="."
 MANIM_FLAGS=""
-SLIDES_FLAGS="--one-file --offline"
+# For a single self-contained HTML use --one-file; drop it to get an assets folder.
+SLIDES_FLAGS="--offline --one-file"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -40,12 +35,9 @@ render() {
 }
 
 html() {
-  while read -r file scene || [[ -n "${file:-}${scene:-}" ]]; do
-    [[ -z "${file:-}" || "${file:0:1}" == "#" ]] && continue
-    out="$SITE/${scene}.html"
-    echo "HTML: $scene -> $out"
-    PYTHONPATH="$PYTHONPATH" manim-slides convert $SLIDES_FLAGS "$scene" "$out"
-  done < "$SCENES_FILE"
+  mapfile -t scenes < <(awk '!/^#/ && NF{print $2}' "$SCENES_FILE")
+  echo "HTML (combined): ${scenes[*]} -> $SITE/index.html"
+  PYTHONPATH="$PYTHONPATH" manim-slides convert $SLIDES_FLAGS "${scenes[@]}" "$SITE/index.html"
 }
 
 case "$MODE" in
