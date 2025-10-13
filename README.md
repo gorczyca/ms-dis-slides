@@ -1,3 +1,6 @@
+# View Live
+https://gorczyca.github.io/ms-dis-slides/
+
 ### Installation
 
 ```
