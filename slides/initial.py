@@ -19,12 +19,12 @@ FLEXABLE_COLOR = '#1f77b4'
 ASP_FOR_ABA = 'aspforaba'
 FLEXABLE = 'flexABle'
 MS_DIS = 'MS-DIS'
-FLEXABLE_A_05 = ' flexABle a=.05 '
-FLEXABLE_A_25 = ' flexABle a=.25 '
-FLEXABLE_A_5 = ' flexABle a=.5 '
-MS_DIS_A_5 = ' MS-DIS a=5 '
-MS_DIS_A_10 = ' MS-DIS a=10 '
-MS_DIS_A_25 = ' MS-DIS a=25 '
+FLEXABLE_A_05 = 'flexABle a=.05'
+FLEXABLE_A_25 = 'flexABle a=.25'
+FLEXABLE_A_5 = 'flexABle a=.5'
+MS_DIS_A_5 = 'MS-DIS a=5'
+MS_DIS_A_10 = 'MS-DIS a=10'
+MS_DIS_A_25 = 'MS-DIS a=25'
 
 RESULT_PATHS = {
     ASP_FOR_ABA: 'results/aspforaba-adm_iccma_ver.csv',
@@ -69,11 +69,10 @@ def create_plot(df, ax, color, border_style, border_color, bg_color, fg_color, x
     return plot, label
 
 
-
 def curve_label(ax, x, y, x_at, text, bg=BLUE_E, fg=WHITE, font="Cousine", offset=UR*0.0,
                 border_color=WHITE, border_width=2, border_style="solid"):
     p = compute_pos(ax, x, y, x_at)
-    lbl = Text(text, font_size=28, color=fg, font=font, fill_opacity=1)
+    lbl = Text(text, font_size=18, color=fg, font=font, fill_opacity=1)
     w, h = lbl.width + 0.3, lbl.height + 0.2
 
     fill_box = RoundedRectangle(corner_radius=0.05, width=w, height=h,
@@ -97,6 +96,9 @@ class Initial(BaseSlide):
     def create_content(self):
         s = self.slide
 
+        Y_LENGTH = 5
+        X_LENGTH = 10
+
         aspforaba_df = load_and_sort(RESULT_PATHS[ASP_FOR_ABA])
 
         flexable_df = load_and_sort(RESULT_PATHS[FLEXABLE])
@@ -117,6 +119,8 @@ class Initial(BaseSlide):
         ax = Axes(
             x_range=[0, 610, 100],
             y_range=[0, 210, 100],
+            x_length=X_LENGTH,
+            y_length=Y_LENGTH,
             tips=True,
             axis_config={"include_numbers": True,
                          "font_size": 28, "color": BLACK},
@@ -172,6 +176,8 @@ class Initial(BaseSlide):
         new_ax = Axes(
             y_range=[0, 410, 100],
             x_range=[0, 610, 100],
+            x_length=X_LENGTH,
+            y_length=Y_LENGTH,
             tips=True,
             axis_config={"include_numbers": True,
                          "font_size": 28, "color": BLACK},
@@ -225,19 +231,22 @@ class Initial(BaseSlide):
         ms_dis_a_5_g_x_at = 265
         ms_dis_a_5_plot, ms_dis_a_5_label = create_plot(msdis_a_05_df, new_ax, color=MSDIS_COLOR, border_style='dashed', border_color=MSDIS_COLOR, bg_color=WHITE, fg_color=MSDIS_COLOR, x_at=ms_dis_a_5_g_x_at, name=MS_DIS_A_5)
 
+        RUN_TIME = 0.1
+
         s.play(
             Create(flexable_a_25_plot['line_graph'], lag_ratio=1), Create(flexable_a_25_plot['vertex_dots']), 
-            Create(flexable_a_25_label[0]), Create(flexable_a_25_label[1]), Write(flexable_a_25_label[2]), 
+            Create(flexable_a_25_label[0], run_time=RUN_TIME), Create(flexable_a_25_label[1], run_time=RUN_TIME), Write(flexable_a_25_label[2]), 
             Create(ms_dis_a_10_plot['line_graph'], lag_ratio=1), Create(ms_dis_a_10_plot['vertex_dots']), 
-            Create(ms_dis_a_10_label[0]), Create(ms_dis_a_10_label[1]), Write(ms_dis_a_10_label[2])
+            Create(ms_dis_a_10_label[0], run_time=RUN_TIME), Create(ms_dis_a_10_label[1], run_time=RUN_TIME), Write(ms_dis_a_10_label[2])
         )
         s.next_slide()
 
         s.play(
             Create(flexable_a_05_plot['line_graph'], lag_ratio=1), Create(flexable_a_05_plot['vertex_dots']), 
-            Create(flexable_a_05_label[0]), Create(flexable_a_05_label[1]), Write(flexable_a_05_label[2]),
+            Create(flexable_a_05_label[0], run_time=RUN_TIME), Create(flexable_a_05_label[1], run_time=RUN_TIME), Write(flexable_a_05_label[2]),
             Create(ms_dis_a_5_plot['line_graph'], lag_ratio=1), Create(ms_dis_a_5_plot['vertex_dots']), 
-            Create(ms_dis_a_5_label[0]), Create(ms_dis_a_5_label[1]), Write(ms_dis_a_5_label[2]),  
+            Create(ms_dis_a_5_label[0], run_time=RUN_TIME), Create(ms_dis_a_5_label[1], run_time=RUN_TIME), Write(ms_dis_a_5_label[2]),  
+            # Create(ms_dis_a_5_label)  
         )
         s.next_slide()
 

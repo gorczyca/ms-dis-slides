@@ -56,12 +56,13 @@ class TexWrapper(Tex):
         super().__init__(*tex_strings, color=color, font_size=font_size, tex_template=tex_template)
 
 
-def make_cell(text, width, font_size=16, color=BLACK):
-    return Tex(
-        rf"\raggedright\parbox[t]{{{width}cm}}{{{text.replace('\n','\\\\')}}}",
-        font_size=font_size,
-        color=color,
-    )
+# def make_cell(text, width, font_size=16, color=BLACK):
+#     return Tex(
+#         rf"\raggedright\parbox[t]{{{width}cm}}{{{text.replace('\n','\\\\')}}}",
+#         font_size=font_size,
+#         color=color,
+#     )
+
 class TableWrapper(Table):
     FONT_SIZE = 20
     FONT_COLOR = BLACK
