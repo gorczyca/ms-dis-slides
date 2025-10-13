@@ -7,8 +7,8 @@ from slides.shared.wrappers import MathTexWrapper, TexWrapper, TextWrapper, get_
 import pandas as pd
 
 from slides.shared.slide_count import SLIDES, SLIDES_NO
-SLIDE_NO = SLIDES.index('Initial') + 1
-
+# SLIDE_NO = SLIDES.index('Initial') + 1
+SLIDE_NO = 8
 
 # 
 ASPFORABA_COLOR = '#2ca02c'
@@ -54,7 +54,7 @@ def compute_pos(ax, x, y, x_at):
     return p
 
 
-def create_plot(df, ax, color, border_style, border_color, bg_color, fg_color, x_at, name):
+def create_plot(df, ax, color, border_style, border_color, bg_color, fg_color, x_at, name, font_size=18):
     x, y = df["duration"], df["X"]
     plot = ax.plot_line_graph(
         x, y,
@@ -64,15 +64,15 @@ def create_plot(df, ax, color, border_style, border_color, bg_color, fg_color, x
     )
 
     # x_at = 510
-    label = curve_label(ax, x, y, x_at=x_at, text=name, border_style=border_style, border_color=border_color, bg=bg_color, fg=fg_color, offset=UR*0)
+    label = curve_label(ax, x, y, x_at=x_at, text=name, border_style=border_style, border_color=border_color, bg=bg_color, fg=fg_color, offset=UR*0, font_size=font_size)
 
     return plot, label
 
 
 def curve_label(ax, x, y, x_at, text, bg=BLUE_E, fg=WHITE, font="Cousine", offset=UR*0.0,
-                border_color=WHITE, border_width=2, border_style="solid"):
+                border_color=WHITE, border_width=2, border_style="solid", font_size=18):
     p = compute_pos(ax, x, y, x_at)
-    lbl = Text(text, font_size=18, color=fg, font=font, fill_opacity=1)
+    lbl = Text(text, font_size=font_size, color=fg, font=font, fill_opacity=1)
     w, h = lbl.width + 0.3, lbl.height + 0.2
 
     fill_box = RoundedRectangle(corner_radius=0.05, width=w, height=h,
@@ -90,8 +90,8 @@ def curve_label(ax, x, y, x_at, text, bg=BLUE_E, fg=WHITE, font="Cousine", offse
 
 
 # ---------- Your slide ----------
-class Initial(BaseSlide):
-    TITLE = 'Motivation'
+class Evaluation1(BaseSlide):
+    TITLE = 'Evaluation (1)'
 
     def create_content(self):
         s = self.slide
@@ -128,32 +128,24 @@ class Initial(BaseSlide):
         coords = ax.add_coordinates()
         coords.set_color(BLACK)
 
+        x_lbl = TexWrapper(r'\textit{t[s]}', color=GREY).scale(0.8).next_to(ax.x_axis, RIGHT, buff=0.1).shift(DOWN*0.1)
+        y_lbl = TexWrapper(r'\textit{n[\#]}', color=GREY).scale(0.8).next_to(ax.y_axis, UP, buff=0.1).shift(LEFT*0.1)
+        # ax.add(x_lbl, y_lbl)
+
         # add grid
         grid = NumberPlane(
             x_range=ax.x_range,
             y_range=ax.y_range,
             x_length=ax.x_axis.get_length(),
             y_length=ax.y_axis.get_length(),
-            background_line_style={"stroke_color": GRAY, "stroke_width": 1, "stroke_opacity": 0.25},
+            background_line_style={"stroke_color": GRAY, "stroke_width": 1, "stroke_opacity": 0.5},
             axis_config={"stroke_opacity": 0},
         )
 
         grid.shift(ax.c2p(0, 0) - grid.c2p(0, 0))  # pin origins together
 
-        s.play(Create(grid), Create(ax))
+        s.play(Create(grid), Create(ax), Create(x_lbl), Create(y_lbl))
         s.next_slide()
-
-        # draw flexable
-        # flex_g_x, flex_g_y = flexable_df["duration"], flexable_df["X"]
-        # flex_g = ax.plot_line_graph(
-        #     flex_g_x, flex_g_y,
-        #     stroke_width=3, line_color=BLUE_E, add_vertex_dots=True,
-        #     vertex_dot_radius=0.03,
-        #     vertex_dot_style={"fill_color": BLACK, "stroke_color": BLACK, "stroke_width": 1},
-        # )
-
-        # flex_g_x_at = 510
-        # flex_g_label = curve_label(ax, flex_g_x, flex_g_y, x_at=flex_g_x_at, text=FLEXABLE, border_style='solid', border_color=RED, bg=WHITE, fg=RED, offset=UR*0)
 
         flex_g_x_at = 510
         flex_plot, flex_label = create_plot(flexable_df, ax, color=FLEXABLE_COLOR, border_style='solid', border_color=FLEXABLE_COLOR, bg_color=FLEXABLE_COLOR, fg_color=WHITE, x_at=flex_g_x_at, name=FLEXABLE)
@@ -167,11 +159,6 @@ class Initial(BaseSlide):
         s.next_slide()
 
         # draw msdis
-
-
-
-
-        #
 
         new_ax = Axes(
             y_range=[0, 410, 100],
@@ -190,7 +177,7 @@ class Initial(BaseSlide):
             y_range=new_ax.y_range,
             x_length=new_ax.x_axis.get_length(),
             y_length=new_ax.y_axis.get_length(),
-            background_line_style={"stroke_color": GRAY, "stroke_width": 1, "stroke_opacity": 0.25},
+            background_line_style={"stroke_color": GRAY, "stroke_width": 1, "stroke_opacity": 0.5},
             axis_config={"stroke_opacity": 0},
         )
         new_grid.shift(new_ax.c2p(0, 0) - new_grid.c2p(0, 0))  # pin origins together        
@@ -249,19 +236,15 @@ class Initial(BaseSlide):
             # Create(ms_dis_a_5_label)  
         )
         s.next_slide()
-
-
-
-
         s.wait()
 
 
-class InitialScene(Slide):
+class Evaluation1Scene(Slide):
     def construct(self):
-        Initial(self, show_footer=True,
+        Evaluation1(self, show_footer=True,
                 slide_no=SLIDE_NO, slide_total=SLIDES_NO)
         self.wait()
 
 
 if __name__ == '__main__':
-    InitialScene().construct()
+    Evaluation1Scene().construct()

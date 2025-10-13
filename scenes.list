@@ -1,3 +1,4 @@
 # scenes.list  (one per line: <file> <SceneClass>)
 slides/title.py TitleScene
-slides/initial.py InitialScene
+slides/evaluation1.py Evaluation1Scene
+slides/evaluation2.py Evaluation2Scene

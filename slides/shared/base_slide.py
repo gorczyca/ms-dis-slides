@@ -6,13 +6,14 @@ from .wrappers import TexWrapper
 class BaseSlide:
     
     # Talk meta
-    TALK_TITLE = r'Supporting Risk Management for Medical Devices via the \textsc{Riskman} Ontology \& Shapes'
-    SHORT_TITLE = r'Supporting Risk Management for Medical Devices via \textsc{Riskman}'
+    # TALK_TITLE = r'Supporting Risk Management for Medical Devices via the \textsc{Riskman} Ontology \& Shapes'
+    SHORT_TITLE = r'ABA Disputes in ASP'
+    # SHORT_TITLE = r'Advancing Argument Games through Multi-Shot Solving'
     
-    TALK_AUTHORS = 'Piotr Gorczyca, Dörthe Arndt, Martin Diller, Jochen Hampe, Georg Heidenreich, Pascal Kettmann, Markus Krötzsch, Stephan Mennicke, Sebastian Rudolph, Hannes Straß'
-    SHORT_AUTHORS = 'Piotr Gorczyca et al.'
+    # TALK_AUTHORS = 'M. Diller, P. Gorczyca, Dörthe Arndt, Martin Diller, Jochen Hampe, Georg Heidenreich, Pascal Kettmann, Markus Krötzsch, Stephan Mennicke, Sebastian Rudolph, Hannes Straß'
+    SHORT_AUTHORS = r'\underline{M. Diller}, P. Gorczyca'
     
-    FOOTER_FONT_SIZE = 30
+    FOOTER_FONT_SIZE = 25
     BACKGROUND_COLOR = WHITE
     FONT_COLOR = BLACK
     
@@ -32,10 +33,12 @@ class BaseSlide:
             slide.add(_title)
             
         if show_footer:
+            _tud_logo = ImageMobject("./img/logo/TUD_Logos_final_RGB_TUD_Bildmarke_blau.png").scale_to_fit_width(1).to_corner(UR).shift(.25*UP+.25*RIGHT)
             _slide_count = TexWrapper(f'{slide_no}/{slide_total}', font_size=self.FOOTER_FONT_SIZE, color=self.FONT_COLOR).to_corner(DR).shift(0.25*DOWN)
             _footer_title = TexWrapper(self.SHORT_TITLE, font_size=self.FOOTER_FONT_SIZE, color=self.FONT_COLOR).to_corner(DL).shift(0.25*DOWN)
-            _authors = TexWrapper(self.SHORT_AUTHORS, font_size=self.FOOTER_FONT_SIZE, color=self.FONT_COLOR).to_edge(DOWN).shift(0.25*DOWN).shift(4*RIGHT)
-            slide.add(_slide_count, _authors, _footer_title)
+            # _authors = TexWrapper(self.SHORT_AUTHORS, font_size=self.FOOTER_FONT_SIZE, color=self.FONT_COLOR).to_edge(DOWN).shift(0.25*DOWN).shift(4*RIGHT)
+            _authors = TexWrapper(self.SHORT_AUTHORS, font_size=self.FOOTER_FONT_SIZE, color=self.FONT_COLOR).to_edge(DOWN).shift(0.25*DOWN)
+            slide.add(_slide_count, _authors, _footer_title, _tud_logo)
         
         self.create_content()
 
