@@ -13,20 +13,21 @@ import slides.evaluation1 as ev1
 from slides.shared.slide_count import SLIDES, SLIDES_NO
 # SLIDE_NO = SLIDES.index('Initial') + 1
 SLIDE_NO = 9
-HIGHLIGHT_COLOR = custom_colors.THIRD_COLOR
+# HIGHLIGHT_COLOR = custom_colors.THIRD_COLOR
+HIGHLIGHT_COLOR = YELLOW
 
 
 def make_col_highlight(tbl, col, color=HIGHLIGHT_COLOR, opacity=0.5, first_row=2):
     rows = len(tbl.get_rows())
     cells = [tbl.get_cell((r, col)) for r in range(first_row, rows + 1)]
     rect = SurroundingRectangle(VGroup(*cells), buff=0)\
-           .set_fill(color, opacity).set_stroke(width=0).set_z_index(100)
+           .set_fill(color, opacity).set_stroke(width=0).set_z_index(0)
     return rect
 
 
 def make_plot_highlight(*plots, color=HIGHLIGHT_COLOR, width=4, opacity=0.5, z=100):
     return VGroup(*[
-        p.copy().set_stroke(color=color, width=width, opacity=opacity)#.set_z_index(z)
+        p.copy().set_stroke(color=color, width=width, opacity=opacity).set_z_index(0)
         for p in plots
     ])
 
@@ -167,11 +168,11 @@ class Evaluation2(BaseSlide):
         # table_placeholder = TexWrapper(r'Here will be the table', font_size=30).to_edge(LEFT)
         s.add(r1, r2, r3, t1, t2, t3)
 
-        s.next_slide()
         s.wait()
+        s.next_slide()
 
-        exact_solvers_cols = VGroup(make_col_highlight(table, 3),
-                                    make_col_highlight(table, 6))
+        exact_solvers_cols = VGroup(make_col_highlight(table, 4),
+                                    make_col_highlight(table, 7))
         
         exact_solvers_plots = make_plot_highlight(flex_plot, ms_plot)
 
@@ -182,8 +183,8 @@ class Evaluation2(BaseSlide):
 
 
         ##
-        approx_1_solvers_cols = VGroup(make_col_highlight(table, 5),
-                                    make_col_highlight(table, 8))
+        approx_1_solvers_cols = VGroup(make_col_highlight(table, 6),
+                                    make_col_highlight(table, 9))
         
         approx_1_solvers_plots =  make_plot_highlight(fa25_plot, ma10_plot)
 
@@ -193,8 +194,8 @@ class Evaluation2(BaseSlide):
         s.next_slide()
 
         ##
-        approx_2_solvers_cols = VGroup(make_col_highlight(table, 4),
-                                    make_col_highlight(table, 7))
+        approx_2_solvers_cols = VGroup(make_col_highlight(table, 5),
+                                    make_col_highlight(table, 8))
         
         approx_2_solvers_plots =  make_plot_highlight(fa05_plot, ma05_plot)
 
