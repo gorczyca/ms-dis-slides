@@ -113,7 +113,7 @@ class Evaluation2(BaseSlide):
                 [' ', '3', '214', '0', '81', '250', '43', '146'],
                 [' ', '0', '0', '153', '30', '0', '114', '69'],
                 [' ', '1', '38', '2', '19', '43', '8', '25'],
-                [' ', '100', '100', '60', '90', '100', '66', '71'],
+                # [' ', '100', '100', '60', '90', '100', '66', '71'],
                 [' ', '99', '44', '60', '71', '34', '59', '44'],
             ],
             row_labels=[
@@ -122,7 +122,7 @@ class Evaluation2(BaseSlide):
                 TextWrapper('#t-out.', font_size=FONT_SIZE).set_z_index(8),#.scale(SCALE_FACTOR), 
                 TextWrapper('#inc', font_size=FONT_SIZE).set_z_index(8),#.scale(SCALE_FACTOR), 
                 TextWrapper('time[h]', font_size=FONT_SIZE).set_z_index(8),#.scale(SCALE_FACTOR), 
-                TextWrapper(r'% acc.', font_size=FONT_SIZE).set_z_index(8),#.scale(SCALE_FACTOR), 
+                # TextWrapper(r'% acc.', font_size=FONT_SIZE).set_z_index(8),#.scale(SCALE_FACTOR), 
                 TextWrapper(r'% acc.t', font_size=FONT_SIZE).set_z_index(8),#.scale(SCALE_FACTOR)
                 ],
             element_to_mobject=lambda s: TextWrapper(s, font_size=FONT_SIZE).set_z_index(8),#.scale(SCALE_FACTOR).set_color(BLACK),
