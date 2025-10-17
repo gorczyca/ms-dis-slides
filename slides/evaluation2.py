@@ -21,7 +21,7 @@ def make_col_highlight(tbl, col, color=HIGHLIGHT_COLOR, opacity=0.5, first_row=2
     rows = len(tbl.get_rows())
     cells = [tbl.get_cell((r, col)) for r in range(first_row, rows + 1)]
     rect = SurroundingRectangle(VGroup(*cells), buff=0)\
-           .set_fill(color, opacity).set_stroke(width=0).set_z_index(0)
+        .set_fill(color, opacity).set_stroke(width=0).set_z_index(0)
     return rect
 
 
@@ -30,8 +30,6 @@ def make_plot_highlight(*plots, color=HIGHLIGHT_COLOR, width=4, opacity=0.5, z=1
         p.copy().set_stroke(color=color, width=width, opacity=opacity).set_z_index(0)
         for p in plots
     ])
-
-
 
 
 # ---------- Your slide ----------
@@ -105,27 +103,33 @@ class Evaluation2(BaseSlide):
         # HERE the table
         # lets fucking goooooooooooo
         # SCALE_FACTOR = 0.6
-        FONT_SIZE=18
+        FONT_SIZE = 18
         table = Table(
             [
                 ['xxxxx', 'xxx', 'xxx', 'xxx', 'xxx', 'xxx', 'xxx', 'xxx'],
-                [' ', ' ', ' ', 'a=5', 'a=10', ' ', 'a=.05', 'a=.25'],
-                [' ', '3', '214', '0', '81', '250', '43', '146'],
-                [' ', '0', '0', '153', '30', '0', '114', '69'],
-                [' ', '1', '38', '2', '19', '43', '8', '25'],
-                # [' ', '100', '100', '60', '90', '100', '66', '71'],
-                [' ', '99', '44', '60', '71', '34', '59', '44'],
+                [' ', ' ', ' ', 'a=10', 'a=5', ' ', 'a=.25', 'a=.05'],
+                [' ', '3', '214', '81', '0', '250', '146', '43'],
+                [' ', '0', '0', '30', '153', '0', '69', '114'],
+                [' ', '1', '38', '19', '2', '43', '25', '8'],
+                [' ', '99', '44', '71', '60', '34', '44', '59'],
             ],
             row_labels=[
-                TextWrapper(' ', font_size=FONT_SIZE).set_z_index(8),#.scale(SCALE_FACTOR), 
-                TextWrapper(' ', font_size=FONT_SIZE).set_z_index(8),#.scale(SCALE_FACTOR), 
-                TextWrapper('#t-out.', font_size=FONT_SIZE).set_z_index(8),#.scale(SCALE_FACTOR), 
-                TextWrapper('#inc', font_size=FONT_SIZE).set_z_index(8),#.scale(SCALE_FACTOR), 
-                TextWrapper('time[h]', font_size=FONT_SIZE).set_z_index(8),#.scale(SCALE_FACTOR), 
-                # TextWrapper(r'% acc.', font_size=FONT_SIZE).set_z_index(8),#.scale(SCALE_FACTOR), 
-                TextWrapper(r'% acc.t', font_size=FONT_SIZE).set_z_index(8),#.scale(SCALE_FACTOR)
-                ],
-            element_to_mobject=lambda s: TextWrapper(s, font_size=FONT_SIZE).set_z_index(8),#.scale(SCALE_FACTOR).set_color(BLACK),
+                TextWrapper(' ', font_size=FONT_SIZE).set_z_index(
+                    8),  # .scale(SCALE_FACTOR),
+                TextWrapper(' ', font_size=FONT_SIZE).set_z_index(
+                    8),  # .scale(SCALE_FACTOR),
+                # .scale(SCALE_FACTOR),
+                TextWrapper('#t-out.', font_size=FONT_SIZE).set_z_index(8),
+                TextWrapper('#inc', font_size=FONT_SIZE).set_z_index(
+                    8),  # .scale(SCALE_FACTOR),
+                TextWrapper('time[h]', font_size=FONT_SIZE).set_z_index(
+                    8),  # .scale(SCALE_FACTOR),
+                # TextWrapper(r'% acc.', font_size=FONT_SIZE).set_z_index(8),#.scale(SCALE_FACTOR),
+                TextWrapper(r'%acc. t', font_size=FONT_SIZE).set_z_index(
+                    8),  # .scale(SCALE_FACTOR)
+            ],
+            element_to_mobject=lambda s: TextWrapper(s, font_size=FONT_SIZE).set_z_index(
+                8),  # .scale(SCALE_FACTOR).set_color(BLACK),
             h_buff=0.15,
             v_buff=0.12,
         ).to_edge(LEFT)
@@ -136,31 +140,33 @@ class Evaluation2(BaseSlide):
         for line in [*h, *v]:
             line.set_z_index(0)
 
-
-        lines = [v[2], v[5], h[1]]
+        lines = [v[0], v[2], v[5], h[1]]
         for line in lines:
             line.set_stroke(color=BLACK, width=1).set_z_index(9)
 
         s.add(table)
 
-
         # hide original header cells
         for c in range(1, 9):
             table.get_entries((1, c)).set_opacity(0)
 
-
-
         # spanning header blocks (row 1; 1-based indexing)
-        r1 = SurroundingRectangle(VGroup(*[table.get_cell((1, c)) for c in range(2, 4)]), buff=0).set_fill(ev1.ASPFORABA_COLOR, 1).set_stroke(width=0).set_z_index(8)
-        r2 = SurroundingRectangle(VGroup(*[table.get_cell((1, c)) for c in range(4, 7)]), buff=0).set_fill(ev1.MSDIS_COLOR, 1).set_stroke(width=0).set_z_index(8)
-        r3 = SurroundingRectangle(VGroup(*[table.get_cell((1, c)) for c in range(7, 10)]), buff=0).set_fill(ev1.FLEXABLE_COLOR, 1).set_stroke(width=0).set_z_index(8)
+        r1 = SurroundingRectangle(VGroup(*[table.get_cell((1, c)) for c in range(
+            2, 4)]), buff=0).set_fill(ev1.ASPFORABA_COLOR, 1).set_stroke(width=0).set_z_index(8)
+        r2 = SurroundingRectangle(VGroup(*[table.get_cell((1, c)) for c in range(
+            4, 7)]), buff=0).set_fill(ev1.MSDIS_COLOR, 1).set_stroke(width=0).set_z_index(8)
+        r3 = SurroundingRectangle(VGroup(*[table.get_cell((1, c)) for c in range(
+            7, 10)]), buff=0).set_fill(ev1.FLEXABLE_COLOR, 1).set_stroke(width=0).set_z_index(8)
 
         # FONT = 'Cousine'
         FONT = 'Consolas'
         FONT_SIZE_DELTA = 3
-        t1 = TextWrapper("aspforaba", font=FONT, font_size=FONT_SIZE-FONT_SIZE_DELTA, color=WHITE).move_to(r1).set_z_index(9)
-        t2 = TextWrapper("MD-DIS", font=FONT, font_size=FONT_SIZE-FONT_SIZE_DELTA, color=WHITE).move_to(r2).set_z_index(9)
-        t3 = TextWrapper("flexABble", font=FONT, font_size=FONT_SIZE-FONT_SIZE_DELTA, color=WHITE).move_to(r3).set_z_index(9)            
+        t1 = TextWrapper("aspforaba", font=FONT, font_size=FONT_SIZE -
+                         FONT_SIZE_DELTA, color=WHITE).move_to(r1).set_z_index(9)
+        t2 = TextWrapper("MD-DIS", font=FONT, font_size=FONT_SIZE -
+                         FONT_SIZE_DELTA, color=WHITE).move_to(r2).set_z_index(9)
+        t3 = TextWrapper("flexABble", font=FONT, font_size=FONT_SIZE -
+                         FONT_SIZE_DELTA, color=WHITE).move_to(r3).set_z_index(9)
 
         # lines = VGroup(v[0], v[1], v[4], h[0]).set_color(BLACK)
         # s.add(table, lines)
@@ -173,7 +179,7 @@ class Evaluation2(BaseSlide):
 
         exact_solvers_cols = VGroup(make_col_highlight(table, 4),
                                     make_col_highlight(table, 7))
-        
+
         exact_solvers_plots = make_plot_highlight(flex_plot, ms_plot)
 
         s.play(FadeIn(exact_solvers_cols), FadeIn(exact_solvers_plots))
@@ -181,12 +187,11 @@ class Evaluation2(BaseSlide):
         s.play(FadeOut(exact_solvers_cols), FadeOut(exact_solvers_plots))
         s.next_slide()
 
-
         ##
-        approx_1_solvers_cols = VGroup(make_col_highlight(table, 6),
-                                    make_col_highlight(table, 9))
-        
-        approx_1_solvers_plots =  make_plot_highlight(fa25_plot, ma10_plot)
+        approx_1_solvers_cols = VGroup(make_col_highlight(table, 5),
+                                       make_col_highlight(table, 8))
+
+        approx_1_solvers_plots = make_plot_highlight(fa25_plot, ma10_plot)
 
         s.play(FadeIn(approx_1_solvers_cols), FadeIn(approx_1_solvers_plots))
         s.next_slide()
@@ -194,10 +199,10 @@ class Evaluation2(BaseSlide):
         s.next_slide()
 
         ##
-        approx_2_solvers_cols = VGroup(make_col_highlight(table, 5),
-                                    make_col_highlight(table, 8))
-        
-        approx_2_solvers_plots =  make_plot_highlight(fa05_plot, ma05_plot)
+        approx_2_solvers_cols = VGroup(make_col_highlight(table, 6),
+                                       make_col_highlight(table, 9))
+
+        approx_2_solvers_plots = make_plot_highlight(fa05_plot, ma05_plot)
 
         s.play(FadeIn(approx_2_solvers_cols), FadeIn(approx_2_solvers_plots))
         s.next_slide()

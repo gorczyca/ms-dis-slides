@@ -5,6 +5,8 @@ from slides.shared.common import labeled_node, edge_between
 from slides.shared.colors import HIGH_COLOR, GREEN_PASTEL, D_BLUE, LAT_ORANGE
 
 TEX_TEMPLATE_LOC = 'assets/preamble.tex'
+FONT = 'Noto Sans'
+
 
 
 def get_tex_template():
@@ -39,10 +41,12 @@ class MathTexWrapper(MathTex):
 class TextWrapper(Text):
     FONT_SIZE = 35
     FONT_COLOR = BLACK
+    
 
     def __init__(self, text, **kwargs):
         kwargs.setdefault("color", self.FONT_COLOR)
         kwargs.setdefault("font_size", self.FONT_SIZE)
+        kwargs.setdefault("font", FONT)
         super().__init__(text, **kwargs)
 
 
