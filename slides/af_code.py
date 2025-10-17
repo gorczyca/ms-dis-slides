@@ -62,7 +62,7 @@ setattr(cm, "DEFAULT_STYLE", "aspvs")        # (covers other versions)
 # style = get_style_by_name("one-dark")
 # style.styles[Punctuation] = "#7aa2f7"  # brighter blue for parens
 
-def create_code_block(code, a, b, color=YELLOW, opacity=0.35, pad=0.04):
+def create_code_block(code, a, b, color=YELLOW, opacity=0.05, pad=0.04):
     lines = code.code_lines
     chunk = VGroup(*lines[a-1:b])
     r = SurroundingRectangle(chunk, buff=pad).set_fill(color, opacity).set_stroke(width=0)
@@ -101,7 +101,7 @@ class AFCode(BaseSlide):
 
         self._active = VGroup(); s.add(self._active)
 
-        def show_step(ranges, on=0.35, rt=0.3, pad=0.04):
+        def show_step(ranges, on=0.25, rt=0.3, pad=0.04):
             if len(self._active):
                 s.play(*[r.animate.set_opacity(0) for r in self._active], run_time=rt/2)
                 s.remove(self._active)
