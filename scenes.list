@@ -7,6 +7,7 @@ slides/af_code.py AfCodeScene
 slides/aba_background.py AbaBackgroundScene
 slides/aba_code.py AbaCodeScene
 slides/aba_example.py AbaExampleScene
+slides/evaluation_setup.py EvaluationSetupScene
 slides/evaluation1.py Evaluation1Scene
 slides/evaluation2.py Evaluation2Scene
 slides/conclusion.py ConclusionScene
