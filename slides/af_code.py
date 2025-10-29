@@ -259,7 +259,9 @@ class AFCode(BaseSlide):
             show_step(code_python, [])
             show_step(code_asp, [])
 
-        s.wait()
+        # s.wait()
+        s.next_slide()
+        show_code_lines_both()
         s.next_slide()
 
         def fixed_arrow(a, b, tip_h=0.2, tip_w=0.16, stroke=2, color=BLACK):
@@ -590,6 +592,7 @@ class AFCode(BaseSlide):
         show_step(code_asp, [(7, 9)])
         s.next_slide()
         s.play(FadeIn(e_node_blue))
+        new_color_nodes.add(e_node_blue)
         s.next_slide()
         show_step(code_asp, [(10, 11)])
         s.next_slide()
@@ -603,6 +606,7 @@ class AFCode(BaseSlide):
         show_step(code_asp, [(14, 15)])
         s.next_slide()
         replace_animate(VGroup(instance_group, color_nodes, new_color_nodes), VGroup(highlighted_second, diagram))
+        show_step(code_asp, [])
         s.next_slide()
         s.play(FadeOut(highlighted_second), FadeIn(highlighted_third, scale=1.1))
         show_step(code_asp, [(12,13)])
