@@ -15,6 +15,9 @@ class Title(BaseSlide):
 
         s = self.slide
 
+        def is_next_slide(s):
+            return s.renderer.is_stopped
+
         bg = SVGMobject('img/logo/tud-logo.svg')
         bg.set_color(custom_colors.PRIMARY_COLOR)
         bg.move_to(ORIGIN, aligned_edge=ORIGIN).scale(15).shift(RIGHT*1.25+UP*7)
@@ -25,9 +28,11 @@ class Title(BaseSlide):
             # .set_fill(opacity=1).set_stroke(width=1, opacity=1)\
             # .scale_to_fit_width(1.5).next_to(bg, RIGHT, buff=1.5).shift(UP*0.25)
 
-
-
         s.add(bg)
+
+
+
+
 
 
 
@@ -71,6 +76,14 @@ class Title(BaseSlide):
             
 
         self.slide.add(tud, title, authors, venue_and_date, iccl)
+
+        # 
+        # c = Circle(radius =.5, color=RED).set_fill(color=[RED,WHITE], opacity=1).move_to([3,0,0])
+        # s.add(c)
+        # s.next_slide(loop=True)
+        # s.play(FadeIn(c, run_time=0.6))
+        # s.play(FadeOut(c, run_time=0.6))
+        # s.next_slide()
         
         
 # to be run as standalone

@@ -591,10 +591,10 @@ class AFCode(BaseSlide):
         s.next_slide()
         show_step(code_asp, [(7, 9)])
         s.next_slide()
-        s.play(FadeIn(e_node_blue))
         # new_color_nodes.add(e_node_blue)
-        s.next_slide()
         show_step(code_asp, [(10, 11)])
+        s.next_slide()
+        s.play(FadeIn(e_node_blue))
         s.next_slide()
 
         new_color_nodes = VGroup(b_node_cp_red, c_node_cp_red, c_node_red, e_node_blue)
