@@ -19,3 +19,4 @@ m(t,o,A) :- pm(t-1,o,A).
 { m(t,p,A) : pm(t-1,p,A) } = 1 :- not pm(t-1,o,_). 
   
 #show m/3.
+#show end/2.
