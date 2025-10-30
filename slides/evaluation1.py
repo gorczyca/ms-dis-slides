@@ -8,7 +8,7 @@ import pandas as pd
 
 from slides.shared.slide_count import SLIDES, SLIDES_NO
 # SLIDE_NO = SLIDES.index('Initial') + 1
-SLIDE_NO = 8
+SLIDE_NO = 10
 
 # 
 ASPFORABA_COLOR = '#2ca02c'

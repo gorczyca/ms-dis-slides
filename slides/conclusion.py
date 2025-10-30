@@ -6,7 +6,7 @@ from slides.shared.wrappers import MathTexWrapper, TexWrapper, TextWrapper
 from slides.shared.colors import D_BLUE, LAT_ORANGE
 
 from slides.shared.slide_count import SLIDES, SLIDES_NO
-SLIDE_NO = 10
+SLIDE_NO = 12
 
 
 class Conclusion(BaseSlide):
