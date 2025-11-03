@@ -34,7 +34,7 @@ class ABACode(BaseSlide):
 
     def create_content(self):
         s = self.slide
-        s.wait()
+
 
         self._active = {}
         def show_step(code_obj, ranges, on=0.25, rt=0.3, pad=0.04, top_trim=0):
@@ -52,11 +52,24 @@ class ABACode(BaseSlide):
                 s.play(*[r.animate.set_opacity(on) for r in new_rects], run_time=rt)
                 self._active[code_obj] = new_rects
 
+        code_python = Code(
+            tab_width=2, code_file="./code/control.py",
+            language='python',
+            formatter_style='one-dark'  # tried with perldoc, gruvbox-dark, vs, dracula, one-dark, monokai, nord-darker, paraiso-dark, solarized-dark, coffee, github-dark, stata-dark
+        ).set(width=6).move_to(ORIGIN)     
+        
+        s.add(code_python)
+        s.wait()
+        s.next_slide()    
+ 
+
         diagram = BlockDiagram().move_to(ORIGIN)
         diagram.create_highlights()
         
-        s.next_slide()
-        s.play(FadeIn(diagram))
+        s.next_slide()    
+        s.play(ReplacementTransform(code_python, diagram))
+        # s.next_slide()
+        # s.play(FadeIn(diagram))
         s.next_slide()
         s.play(FadeIn(diagram.get_highlight('first')))
 
@@ -139,46 +152,6 @@ class ABACode(BaseSlide):
         show_step(c5, [(3,3)])
         s.next_slide()
         show_step(c5, [])
-
-
-
-
-
-
-
-
-
-
-
-        # s.add(diagram)
-
-        return
-
-
-
-
-
-        c1.to_edge(LEFT)
-        s.add(c1)
-        s.wait()
-        s.next_slide()
-
-        show_step(c1, [(1,3)])
-
-        animate_scroll(s, c1, c2)
-
-        animate_scroll(s, c2, c3)
-
-        animate_scroll(s, c3, c4)
-
-        animate_scroll(s, c4, c5)
-
-
-        # c2.move_to(c1.get_center())
-        # s.play(ReplacementTransform(c1, c2))
-        # s.play(c1.animate.shift(UP*c1.height), c2.animate.shift(UP*c1.height))
-
-        s.wait()
 
 
 class AbaCodeScene(Slide):

@@ -14,7 +14,7 @@ from slides.shared.slide_count import SLIDES, SLIDES_NO
 # SLIDE_NO = SLIDES.index('Initial') + 1
 SLIDE_NO = 11
 # HIGHLIGHT_COLOR = custom_colors.THIRD_COLOR
-HIGHLIGHT_COLOR = GREEN
+HIGHLIGHT_COLOR = YELLOW
 
 
 def make_col_highlight(tbl, col, color=HIGHLIGHT_COLOR, opacity=0.5, first_row=2):
