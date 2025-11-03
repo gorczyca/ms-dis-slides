@@ -15,25 +15,28 @@ class ABAExample(BaseSlide):
     def create_content(self):
         s = self.slide
 
-        bullets = BulletedList(
-            r'\sffamily -- show visually a few step of the dispute',
-            # r'\sffamily (1) initialization (the entire base)',
-            # r'\sffamily (2) update state (explain and maybe show visually culprits, defences, blocked pieces)',
-            # r'\sffamily (3) possible moves',
-            # r'\sffamily (4) new pieces from the performed moves',
-            # r'\sffamily (5) termination criteria',
-            # r'\sffamily (6) choice of next move',
+        # framework        
+        FONT_SIZE = 30
+        BUFF=0.05
+        assumptions = TexWrapper(r'$\frA=\set{a,b,c,d,e,\bar{e},f}$, $\frCtr(x)=\bar{x}$ for $x\in\frA$', font_size=FONT_SIZE).to_corner(UR).shift(DOWN)
+        rules = TexWrapper(r'$\frR=\{ s \gets d,p,a; \;\; p\gets\bar{c}; \;\; \bar{c} \gets f; $', font_size=FONT_SIZE).next_to(assumptions, DOWN, aligned_edge=LEFT, buff=BUFF*2)
+        rules_2 = TexWrapper(r'$\bar{a} \gets b,t; \;\;\;\;\;\; \bar{d} \gets e;   \;\; t\gets c \;\;\; \}$', font_size=FONT_SIZE).next_to(rules, DOWN, aligned_edge=LEFT, buff=BUFF).shift(RIGHT*.85)
 
-            # r'\sffamily -- show AF (from previous slide)',
-            # r'\sffamily -- go line by line and show what is encoded and how this corresponds to AF components',
-            # r'\sffamily -- also show the various parts (base, updateState, step)',
-            # r'\sffamily -- explain what dispute state is in AF',
-            # r'\sffamily -- lightweight, modular, declarative, extensible implementation',
-            # r'\sffamily -- advance ABA disputes',
-            # r'\sffamily -- propose our approach as general methodology for argument games',
-            font_size=30, color=BLACK, buff=0.2)
 
-        s.add(bullets)
+        FONT_SIZE_OUTPUT = 30
+        output_str = TexWrapper(r'Output:', font_size=FONT_SIZE_OUTPUT)
+        m_1 = TexWrapper(r'\texttt{m(1,p,pb1,}$s\gets d,p,a$\texttt{).}}', font_size=FONT_SIZE_OUTPUT)
+        m_2 = TexWrapper(r'\texttt{m(2,o,ob2,}$\bar{a}\gets b,t$\texttt{).}}', font_size=FONT_SIZE_OUTPUT)
+        m_2_1 = TexWrapper(r'\texttt{m(2,o,ob2,}$\bar{d}\gets e$\texttt{).}}', font_size=FONT_SIZE_OUTPUT)
+        m_3 = TexWrapper(r'\texttt{m(3,p,ob1,}$t\gets c$\texttt{).}}', font_size=FONT_SIZE_OUTPUT)
+        m_4 = TexWrapper(r'\texttt{m(4,p,pf2,$\bar{e}$).}', font_size=FONT_SIZE_OUTPUT)
+        m_5 = TexWrapper(r'\texttt{m(5,p,pb1,}$p\gets \bar{c}$\texttt{).}}', font_size=FONT_SIZE_OUTPUT)
+        m_6 = TexWrapper(r'\texttt{m(6,p,pb1,}$\bar{c}\gets f$\texttt{).}}', font_size=FONT_SIZE_OUTPUT)
+
+        output_group = VGroup(output_str, m_1, m_2, m_2_1, m_3, m_4, m_5, m_6).arrange(DOWN, aligned_edge=LEFT, buff=0.05).next_to(assumptions, DOWN, aligned_edge=LEFT, buff=1.5)
+        
+        s.add(assumptions, rules, rules_2, output_group)
+
         s.wait()
 
 
