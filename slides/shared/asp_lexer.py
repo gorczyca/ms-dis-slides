@@ -53,13 +53,14 @@ def set_asp_lexer():
     setattr(cm, "DEFAULT_STYLE", "aspvs")        # (covers other versions)
 
 
-def get_asp_code(code_path, font_size=24, add_line_numbers=False, buff=0.2):
+def get_asp_code(code_path, font_size=24, add_line_numbers=False, buff=0.2, line_numbers_from=1):
         code = Code(
             tab_width=2,
             code_string=Path(code_path).read_text(encoding="utf-8"),
             language='asp',
             # padding=padding,
             add_line_numbers=add_line_numbers,
+            line_numbers_from=line_numbers_from,
             # font_size=font_size,
             paragraph_config={"font_size": font_size},
             background_config={"buff": buff},
@@ -68,3 +69,22 @@ def get_asp_code(code_path, font_size=24, add_line_numbers=False, buff=0.2):
         )
         # code.background..stretch_to_fit_width(width)
         return code
+
+
+def create_code_block(code, a, b, color=YELLOW, opacity=0.05, pad=0.04, top_trim=0.0):
+    lines = code.code_lines
+    chunk = VGroup(*lines[a-1:b])
+    r = SurroundingRectangle(chunk, buff=pad).set_fill(color, opacity).set_stroke(width=0)
+
+    # left-locked horizontal stretch to code width
+    r.align_to(code, LEFT)
+    sx = code.width / r.width if r.width else 1.0
+    r.stretch(sx, dim=0, about_point=r.get_left())
+
+    # trim only the top (bottom stays put)
+    if top_trim > 0:
+        trim = min(top_trim, r.height - 1e-6)
+        sy = (r.height - trim) / r.height
+        r.stretch(sy, dim=1, about_point=r.get_bottom())
+
+    return r

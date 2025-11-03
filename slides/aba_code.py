@@ -1,12 +1,32 @@
 from manim import *
 from manim_slides import Slide
 
+from slides.shared.asp_lexer import get_asp_code, set_asp_lexer, create_code_block
 from slides.shared.base_slide import BaseSlide
 from slides.shared.wrappers import MathTexWrapper, TexWrapper, TextWrapper
 from slides.shared.colors import D_BLUE, LAT_ORANGE
+from slides.shared.block_diagram import BlockDiagram
 
 from slides.shared.slide_count import SLIDES, SLIDES_NO
 SLIDE_NO = 7
+
+FONT_SIZE_CODE = 17
+
+set_asp_lexer()
+
+def replace_animate(s, v1, v2):
+    s.play(FadeOut(v1), FadeIn(v2))
+
+def animate_scroll(s, cur, nxt):
+    nxt.next_to(cur, DOWN, buff=0)
+    shift = cur.get_center() - nxt.get_center()
+    s.play(
+        cur.animate.shift(shift),
+        nxt.animate.shift(shift),
+        FadeOut(cur)
+    )
+    # s.play(FadeOut(cur))
+    s.next_slide()
 
 
 class ABACode(BaseSlide):
@@ -14,26 +34,150 @@ class ABACode(BaseSlide):
 
     def create_content(self):
         s = self.slide
+        s.wait()
 
-        bullets = BulletedList(
-            r'\sffamily -- show each portion of the code, that is',
-            r'\sffamily (1) initialization (the entire base)',
-            r'\sffamily (2) update state (explain and maybe show visually culprits, defences, blocked pieces)',
-            r'\sffamily (3) possible moves',
-            r'\sffamily (4) new pieces from the performed moves',
-            r'\sffamily (5) termination criteria',
-            r'\sffamily (6) choice of next move',
+        self._active = {}
+        def show_step(code_obj, ranges, on=0.25, rt=0.3, pad=0.04, top_trim=0):
+            if code_obj in self._active:
+                s.play(*[r.animate.set_opacity(0)
+                    for r in self._active[code_obj]], run_time=rt/2)
+                s.remove(self._active[code_obj])
+                del self._active[code_obj]
+            if ranges:
+                new_rects = VGroup(
+                    *[create_code_block(code_obj, a, b, opacity=on, pad=pad, top_trim=top_trim) for a, b in ranges])
+                for r in new_rects:
+                    r.set_opacity(0)
+                s.add(new_rects)
+                s.play(*[r.animate.set_opacity(on) for r in new_rects], run_time=rt)
+                self._active[code_obj] = new_rects
 
-            # r'\sffamily -- show AF (from previous slide)',
-            # r'\sffamily -- go line by line and show what is encoded and how this corresponds to AF components',
-            # r'\sffamily -- also show the various parts (base, updateState, step)',
-            # r'\sffamily -- explain what dispute state is in AF',
-            # r'\sffamily -- lightweight, modular, declarative, extensible implementation',
-            # r'\sffamily -- advance ABA disputes',
-            # r'\sffamily -- propose our approach as general methodology for argument games',
-            font_size=30, color=BLACK, buff=0.2)
+        diagram = BlockDiagram().move_to(ORIGIN)
+        diagram.create_highlights()
+        
+        s.next_slide()
+        s.play(FadeIn(diagram))
+        s.next_slide()
+        s.play(FadeIn(diagram.get_highlight('first')))
 
-        s.add(bullets)
+        c1 = get_asp_code('./code/aba-encoding/01-base.lp', font_size=FONT_SIZE_CODE, add_line_numbers=True).move_to(ORIGIN)
+        C2_LINE_START = 9
+        C3_LINE_START = 24
+        C4_LINE_START = 44
+        C5_LINE_START = 56
+
+        c2 = get_asp_code('./code/aba-encoding/02-update-state-1.lp', font_size=FONT_SIZE_CODE, add_line_numbers=True, line_numbers_from=C2_LINE_START).move_to(ORIGIN)
+
+        c3 = get_asp_code('./code/aba-encoding/03-update-state-2.lp', font_size=FONT_SIZE_CODE, add_line_numbers=True, line_numbers_from=C3_LINE_START)
+        c4 = get_asp_code('./code/aba-encoding/04-update-state-3.lp', font_size=FONT_SIZE_CODE, add_line_numbers=True, line_numbers_from=C4_LINE_START)
+        c5 = get_asp_code('./code/aba-encoding/05-step.lp', font_size=FONT_SIZE_CODE, add_line_numbers=True, line_numbers_from=C5_LINE_START).move_to(ORIGIN)
+        
+        s.next_slide()
+        replace_animate(s, VGroup(diagram, diagram.get_highlight('first')), c1)
+        # s.play(FadeOut(diagram.get_highlight('first')))
+        s.next_slide()
+
+        show_step(c1, [(3,3)])
+        s.next_slide()
+        show_step(c1, [(7,7)])
+
+        s.next_slide()
+        show_step(c1, [])
+        replace_animate(s, c1, VGroup(diagram, diagram.get_highlight('first')))
+        s.next_slide()
+        s.play(FadeOut(diagram.get_highlight('first')), FadeIn(diagram.get_highlight('second')))
+        s.next_slide()
+        replace_animate(s, VGroup(diagram, diagram.get_highlight('second')), c2)
+        s.next_slide()
+        show_step(c2, [(2,2)])
+        s.next_slide()
+        show_step(c2, [(3,3)])
+        s.next_slide()
+        show_step(c2, [])
+
+        animate_scroll(s, c2, c3)
+        s.next_slide()
+        show_step(c3, [(1,1)])
+        s.next_slide()
+        show_step(c3, [(2,2)])
+        s.next_slide()
+        show_step(c3, [(11,20)])
+        s.next_slide()
+        show_step(c3, [])
+
+        animate_scroll(s, c3, c4)
+        s.next_slide()
+        show_step(c4, [(1,1)])
+        s.next_slide()
+        show_step(c4, [])
+        replace_animate(s, c4, VGroup(diagram, diagram.get_highlight('second')))
+        s.next_slide()
+        s.play(FadeOut(diagram.get_highlight('second')), FadeIn(diagram.get_highlight('third')))
+        s.next_slide()
+        replace_animate(s, VGroup(diagram, diagram.get_highlight('third')), c4)
+        s.next_slide()
+        show_step(c4, [(10,10)])
+        s.next_slide()
+        show_step(c4, [])
+        replace_animate(s, c4, VGroup(diagram, diagram.get_highlight('third')))
+        s.next_slide()
+        s.play(FadeOut(diagram.get_highlight('third')), FadeIn(diagram.get_highlight('fourth')))
+        s.next_slide()
+        replace_animate(s,VGroup(diagram, diagram.get_highlight('fourth')), c4)
+        s.next_slide()
+        show_step(c4, [(11,11)])
+        s.next_slide()
+        show_step(c4, [])
+        replace_animate(s, c4, VGroup(diagram, diagram.get_highlight('fourth')))
+        s.next_slide()
+        s.play(FadeOut(diagram.get_highlight('fourth')), FadeIn(diagram.get_highlight('fifth')))
+        s.next_slide()
+        replace_animate(s, VGroup(diagram, diagram.get_highlight('fifth')), c5)
+        s.next_slide()
+        show_step(c5, [(2,2)])
+        s.next_slide()
+        show_step(c5, [(3,3)])
+        s.next_slide()
+        show_step(c5, [])
+
+
+
+
+
+
+
+
+
+
+
+        # s.add(diagram)
+
+        return
+
+
+
+
+
+        c1.to_edge(LEFT)
+        s.add(c1)
+        s.wait()
+        s.next_slide()
+
+        show_step(c1, [(1,3)])
+
+        animate_scroll(s, c1, c2)
+
+        animate_scroll(s, c2, c3)
+
+        animate_scroll(s, c3, c4)
+
+        animate_scroll(s, c4, c5)
+
+
+        # c2.move_to(c1.get_center())
+        # s.play(ReplacementTransform(c1, c2))
+        # s.play(c1.animate.shift(UP*c1.height), c2.animate.shift(UP*c1.height))
+
         s.wait()
 
 

@@ -8,6 +8,8 @@ from slides.shared.asp_lexer import set_asp_lexer, get_asp_code
 
 from slides.shared.slide_count import SLIDES, SLIDES_NO
 SLIDE_NO = 5
+CODE_W = 5.5
+
 
 set_asp_lexer()
 
