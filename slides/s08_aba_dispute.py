@@ -1,7 +1,7 @@
 from manim import *
 from manim_slides import Slide
 
-from slides.evaluation2 import HIGHLIGHT_COLOR
+from slides.s11_evaluation2 import HIGHLIGHT_COLOR
 from slides.shared.base_slide import BaseSlide
 from slides.shared.wrappers import MathTexWrapper, TexWrapper, TextWrapper
 from slides.shared.colors import D_BLUE, LAT_ORANGE
@@ -14,8 +14,8 @@ SLIDE_NO = 8
 
 
 
-class ABAExample(BaseSlide):
-    TITLE = r'ABA Example (TODO)'
+class S08ABADispute(BaseSlide):
+    TITLE = r'Extension to ABA Disputes: Dispute'
 
     def create_content(self):
         s = self.slide
@@ -153,7 +153,7 @@ class ABAExample(BaseSlide):
      
 
 
-class AbaExampleScene(Slide):
+class S08AbaDisputeScene(Slide):
     def construct(self):
-        ABAExample(self, show_footer=True, slide_no=SLIDE_NO, slide_total=SLIDES_NO)
+        S08ABADispute(self, show_footer=True, slide_no=SLIDE_NO, slide_total=SLIDES_NO)
         self.wait()

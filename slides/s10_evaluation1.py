@@ -90,7 +90,7 @@ def curve_label(ax, x, y, x_at, text, bg=BLUE_E, fg=WHITE, font="Cousine", offse
 
 
 # ---------- Your slide ----------
-class Evaluation1(BaseSlide):
+class S10Evaluation1(BaseSlide):
     TITLE = 'Evaluation (1)'
 
     def create_content(self):
@@ -238,12 +238,12 @@ class Evaluation1(BaseSlide):
         s.wait()
 
 
-class Evaluation1Scene(Slide):
+class S10Evaluation1Scene(Slide):
     def construct(self):
-        Evaluation1(self, show_footer=True,
+        S10Evaluation1(self, show_footer=True,
                 slide_no=SLIDE_NO, slide_total=SLIDES_NO)
         self.wait()
 
 
 if __name__ == '__main__':
-    Evaluation1Scene().construct()
+    S10Evaluation1Scene().construct()

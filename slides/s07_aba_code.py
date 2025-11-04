@@ -29,8 +29,8 @@ def animate_scroll(s, cur, nxt):
     s.next_slide()
 
 
-class ABACode(BaseSlide):
-    TITLE = r'ABA Code (TODO)'
+class S07ABACode(BaseSlide):
+    TITLE = r'Extension to ABA Disputes: Code'
 
     def create_content(self):
         s = self.slide
@@ -154,7 +154,7 @@ class ABACode(BaseSlide):
         show_step(c5, [])
 
 
-class AbaCodeScene(Slide):
+class S07AbaCodeScene(Slide):
     def construct(self):
-        ABACode(self, show_footer=True, slide_no=SLIDE_NO, slide_total=SLIDES_NO)
+        S07ABACode(self, show_footer=True, slide_no=SLIDE_NO, slide_total=SLIDES_NO)
         self.wait()

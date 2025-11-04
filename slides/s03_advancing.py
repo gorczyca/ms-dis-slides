@@ -1,0 +1,44 @@
+from manim import *
+from manim_slides import Slide
+
+from slides.shared.base_slide import BaseSlide
+from slides.shared.wrappers import MathTexWrapper, TexWrapper, TextWrapper, bullet_line
+from slides.shared.colors import D_BLUE, LAT_ORANGE
+
+from slides.shared.slide_count import SLIDES, SLIDES_NO
+
+from slides.shared.common import FONT_SIZE_TEXT
+
+
+SLIDE_NO = 3
+
+
+
+
+class S03Advancing(BaseSlide):
+    TITLE = r'Advancing Argument Games through Multi-Shot Solving'
+    TITLE_FONT_SIZE = 45
+    def create_content(self):
+        s = self.slide
+
+        items = [
+            r'\textbf{ASP} widely used for implementing argumentation, but repeated grounding from scratch is costly in iterative scenarios',
+            r'\textbf{Multi-shot ASP} allows updating and re-solving $\rightarrow$ avoids unnecessary grounding overhead',
+            r'We present the \textbf{first use of multi-shot ASP} for argumentation games',
+            r"Focus on \textbf{ABA dispute derivations} and \textbf{Dung's AFs}",
+            r"Offers a \textbf{declarative} and more streamlined implementation of argument games",
+            r"Provides a \textbf{general framework} for implementing and comparing argument games",
+        ]
+
+        bullets = VGroup(*[bullet_line(t) for t in items]).arrange(DOWN, aligned_edge=LEFT, buff=0.25).to_edge(LEFT).shift(RIGHT*.25)
+
+        for b in bullets:
+            s.play(FadeIn(b, shift=0.2*RIGHT))
+            s.next_slide()
+
+
+
+class S03AdvancingScene(Slide):
+    def construct(self):
+        S03Advancing(self, show_footer=True, slide_no=SLIDE_NO, slide_total=SLIDES_NO)
+        self.wait()

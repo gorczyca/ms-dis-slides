@@ -8,14 +8,14 @@ from slides.shared.colors import D_BLUE, LAT_ORANGE
 from slides.shared.graphs import fixed_arrow_graph, curved_arrow
 
 from slides.shared.slide_count import SLIDES, SLIDES_NO
-SLIDE_NO = 8
+SLIDE_NO = 6
 
 
 
 
 
-class ABAArguments(BaseSlide):
-    TITLE = r'ABA Arguments \& Attacks'
+class S06ABAArguments(BaseSlide):
+    TITLE = r'Extension to ABA Disputes: Arguments \& Attacks'
 
     def create_content(self):
         s = self.slide
@@ -159,7 +159,7 @@ class ABAArguments(BaseSlide):
         s.next_slide()
         s.play(Create(curved_arrow(xc.get_top(), c.get_right()+RIGHT*0.1+DOWN*0.1, bend=-.4, color=RED)))
 
-class AbaArgumentsScene(Slide):
+class S06AbaArgumentsScene(Slide):
     def construct(self):
-        ABAArguments(self, show_footer=True, slide_no=SLIDE_NO, slide_total=SLIDES_NO)
+        S06ABAArguments(self, show_footer=True, slide_no=SLIDE_NO, slide_total=SLIDES_NO)
         self.wait()

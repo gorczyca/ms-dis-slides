@@ -1,6 +1,6 @@
 from manim import *
 
-from slides.shared.common import labeled_node, edge_between
+from slides.shared.common import labeled_node, edge_between, FONT_SIZE_TEXT
 
 from slides.shared.colors import HIGH_COLOR, GREEN_PASTEL, D_BLUE, LAT_ORANGE
 
@@ -274,3 +274,26 @@ class SmallGraph(VGroup):
                 
             # self.slide.play(FadeOut(hl), run_time=0.2)
             # self.slide.play(VGroup(*graph_elems).animate.scale(0.7).shift(LEFT*3))
+
+
+# TODO
+WIDTH = 13
+BUFF=1.5
+
+
+def bullet_line(text, width=WIDTH, font_size=FONT_SIZE_TEXT):
+    bullet = TexWrapper(r"$\bullet$", font_size=font_size)
+    body = TexWrapper(
+        r"\parbox[t]{%scm}{\sffamily %s}" % (width, text),
+        font_size=font_size,
+        color=BLACK,
+    )
+    body.next_to(bullet, RIGHT, aligned_edge=UP, buff=0.25).shift(UP*0.1)
+    return VGroup(bullet, body).align_to(bullet, LEFT)
+
+def tex_paragraph(text, width=WIDTH, font_size=FONT_SIZE_TEXT, color=BLACK):
+    return TexWrapper(
+        r"\parbox[t]{%scm}{\sffamily %s}" % (width, text),
+        font_size=font_size,
+        color=color,
+    )

@@ -9,7 +9,7 @@ from slides.shared.slide_count import SLIDES, SLIDES_NO
 SLIDE_NO = 12
 
 
-class Conclusion(BaseSlide):
+class S12Conclusion(BaseSlide):
     TITLE = r'Conclusion (TODO)'
 
     def create_content(self):
@@ -26,7 +26,7 @@ class Conclusion(BaseSlide):
         s.wait()
 
 
-class ConclusionScene(Slide):
+class S12ConclusionScene(Slide):
     def construct(self):
-        Conclusion(self, show_footer=True, slide_no=SLIDE_NO, slide_total=SLIDES_NO)
+        S12Conclusion(self, show_footer=True, slide_no=SLIDE_NO, slide_total=SLIDES_NO)
         self.wait()

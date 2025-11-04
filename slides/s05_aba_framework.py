@@ -18,8 +18,8 @@ def example_box(mobj):
     return VGroup(box, mobj)
 
 
-class ABAFramework(BaseSlide):
-    TITLE = r'ABA Framework (TODO)'
+class S05ABAFramework(BaseSlide):
+    TITLE = r'Extension to ABA Disputes: Framework'
 
     def create_content(self):
         s = self.slide
@@ -72,7 +72,7 @@ class ABAFramework(BaseSlide):
         s.next_slide()
 
 
-class AbaFrameworkScene(Slide):
+class S05AbaFrameworkScene(Slide):
     def construct(self):
-        ABAFramework(self, show_footer=True, slide_no=SLIDE_NO, slide_total=SLIDES_NO)
+        S05ABAFramework(self, show_footer=True, slide_no=SLIDE_NO, slide_total=SLIDES_NO)
         self.wait()

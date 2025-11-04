@@ -6,26 +6,27 @@ from slides.shared.wrappers import MathTexWrapper, TexWrapper, TextWrapper
 from slides.shared.colors import D_BLUE, LAT_ORANGE
 
 from slides.shared.slide_count import SLIDES, SLIDES_NO
-SLIDE_NO = 1
+SLIDE_NO = 9
 
 
-class BigPicture(BaseSlide):
-    TITLE = r'Big Picture (TODO)'
+class S09EvaluationSetup(BaseSlide):
+    TITLE = r'Evaluation Setup (TODO)'
 
     def create_content(self):
         s = self.slide
 
         big_pic_bullets = BulletedList(
-            r'\sffamily -- explain there is AFs and ABA',
-            r'\sffamily -- high-level description of the problem',
-            r'\sffamily -- visual intuition',
+            r'\sffamily -- mention all solvers',
+            r'\sffamily -- their modes',
+            r'\sffamily -- instances (briefly describe)',
+            r'\sffamily -- timeout, scoring, etc',
             font_size=40, color=BLACK, buff=0.2)
 
         s.add(big_pic_bullets)
         s.wait()
 
 
-class BigPictureScene(Slide):
+class S09EvaluationSetupScene(Slide):
     def construct(self):
-        BigPicture(self, show_footer=True, slide_no=SLIDE_NO, slide_total=SLIDES_NO)
+        S09EvaluationSetup(self, show_footer=True, slide_no=SLIDE_NO, slide_total=SLIDES_NO)
         self.wait()

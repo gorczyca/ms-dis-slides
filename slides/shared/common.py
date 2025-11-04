@@ -4,6 +4,9 @@ from manim import *
 from manim.mobject.geometry.line import Line
 
 from slides.shared.colors import HIGH_COLOR, GREEN_PASTEL
+# from slides.shared.wrappers import TexWrapper
+
+FONT_SIZE_TEXT = 32
 
 
 def ind_edge(edg):
@@ -90,3 +93,4 @@ def highlight_box(obj, color_border=BLACK, fill_color=YELLOW, fill_opacity=0.35,
         rect = DashedVMobject(rect, num_dashes=num_dashes)
 
     return VGroup(bg, rect)
+

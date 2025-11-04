@@ -8,7 +8,7 @@ import pandas as pd
 
 import slides.shared.colors as custom_colors
 
-import slides.evaluation1 as ev1
+import slides.s10_evaluation1 as ev1
 
 from slides.shared.slide_count import SLIDES, SLIDES_NO
 # SLIDE_NO = SLIDES.index('Initial') + 1
@@ -33,7 +33,7 @@ def make_plot_highlight(*plots, color=HIGHLIGHT_COLOR, width=4, opacity=0.5, z=1
 
 
 # ---------- Your slide ----------
-class Evaluation2(BaseSlide):
+class S11Evaluation2(BaseSlide):
     TITLE = 'Evaluation (2)'
 
     def create_content(self):
@@ -209,12 +209,12 @@ class Evaluation2(BaseSlide):
         s.play(FadeOut(approx_2_solvers_cols), FadeOut(approx_2_solvers_plots))
 
 
-class Evaluation2Scene(Slide):
+class S11Evaluation2Scene(Slide):
     def construct(self):
-        Evaluation2(self, show_footer=True,
+        S11Evaluation2(self, show_footer=True,
                     slide_no=SLIDE_NO, slide_total=SLIDES_NO)
         self.wait()
 
 
 if __name__ == '__main__':
-    Evaluation2Scene().construct()
+    S11Evaluation2Scene().construct()

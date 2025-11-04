@@ -8,7 +8,7 @@ from slides.shared.colors import D_BLUE, LAT_ORANGE
 from slides.shared.slide_count import SLIDES, SLIDES_NO
 
 
-class Extra(BaseSlide):
+class S13Extra(BaseSlide):
     TITLE = r'Extra (TODO)'
 
     def create_content(self):
@@ -39,7 +39,7 @@ class Extra(BaseSlide):
         s.wait()
 
 
-class ExtraScene(Slide):
+class S13ExtraScene(Slide):
     def construct(self):
-        Extra(self, show_footer=False)
+        S13Extra(self, show_footer=False)
         self.wait()

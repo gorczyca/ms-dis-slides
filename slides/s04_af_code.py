@@ -91,8 +91,8 @@ def create_code_block(code, a, b, color=YELLOW, opacity=0.05, pad=0.04, top_trim
 
 
 
-class AFCode(BaseSlide):
-    TITLE = r'AFs (TODO)'
+class S04AFCode(BaseSlide):
+    TITLE = r"Multi-shot ASP for Dung's AFs"
 
     def create_content(self):
         s = self.slide
@@ -563,7 +563,6 @@ class AFCode(BaseSlide):
         s.next_slide()
         show_line(graph_obj_cp[0], graph_obj_cp[1], r'\texttt{m(2,p,e).}')
         s.next_slide()
-        # 
         instance_group.add(graph_code_obj, graph_obj_cp, e_node_cp_green)
         # 
 
@@ -624,7 +623,7 @@ class AFCode(BaseSlide):
         s.play(Circumscribe(highlighted_third_yes, color=GREEN))
 
 
-class AfCodeScene(Slide):
+class S04AfCodeScene(Slide):
     def construct(self):
-        AFCode(self, show_footer=True, slide_no=SLIDE_NO, slide_total=SLIDES_NO)
+        S04AFCode(self, show_footer=True, slide_no=SLIDE_NO, slide_total=SLIDES_NO)
         self.wait()
