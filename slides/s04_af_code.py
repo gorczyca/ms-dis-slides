@@ -614,7 +614,10 @@ class S04AFCode(BaseSlide):
         replace_animate(VGroup(highlighted_third, diagram), VGroup(instance_group, color_nodes, new_color_nodes))
         s.next_slide()
         # highlight_box()
-        box = highlight_box(graph_obj_cp[1][-1], buff=0.075)
+        # highlight first move
+        HIGHLIGHT_FILL_OPACITY=0.2
+        HIGHLIGHT_BUFF=0.05
+        box = highlight_box(graph_obj_cp[1][-1], buff=HIGHLIGHT_BUFF, fill_opacity=HIGHLIGHT_FILL_OPACITY)
         s.play(FadeIn(box))
         # s.next_slide()
         # s.play(Indicate(graph_obj_cp[1][-1]), color=GREEN)
