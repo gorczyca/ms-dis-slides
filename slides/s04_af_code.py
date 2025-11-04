@@ -19,6 +19,7 @@ from pygments.styles import get_style_by_name, STYLE_MAP
 
 from pathlib import Path
 from slides.shared.base_slide import BaseSlide
+from slides.shared.common import highlight_box
 from slides.shared.wrappers import MathTexWrapper, TexWrapper, TextWrapper
 from slides.shared.colors import D_BLUE, LAT_ORANGE
 
@@ -384,7 +385,7 @@ class S04AFCode(BaseSlide):
         instance_group.add(lines_group)
 
         def show_line(graph_o, line_g, line):
-            t = TexWrapper(line, font_size=25)
+            t = TexWrapper(line, font_size=25).set_z_index(99)
             line_g.add(t)
             line_g.arrange(DOWN, aligned_edge=LEFT, buff=0.05)
             line_g.next_to(graph_o, RIGHT, aligned_edge=UP)
@@ -612,10 +613,15 @@ class S04AFCode(BaseSlide):
         s.next_slide()
         replace_animate(VGroup(highlighted_third, diagram), VGroup(instance_group, color_nodes, new_color_nodes))
         s.next_slide()
-        s.play(Indicate(graph_obj_cp[1][-1]), color=GREEN)
+        # highlight_box()
+        box = highlight_box(graph_obj_cp[1][-1], buff=0.15)
+        s.play(FadeIn(box))
+        # s.next_slide()
+        # s.play(Indicate(graph_obj_cp[1][-1]), color=GREEN)
         s.next_slide()
         s.play(Circumscribe(graph_obj_cp, color=GREEN))
         s.next_slide()
+        s.play(FadeOut(box))
         replace_animate(VGroup(instance_group, color_nodes, new_color_nodes), VGroup(highlighted_third, diagram))
         s.next_slide()
         highlighted_third_yes = highlight(third_yes)
