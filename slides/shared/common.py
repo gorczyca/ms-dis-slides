@@ -67,3 +67,26 @@ def edge_between(src, dst, out_dir=RIGHT, in_dir=LEFT, color=BLACK, label_text=N
                            color=color, fill_color=WHITE, fill_opacity=1,  stroke_width=1)
     lbl = VGroup(box, txt).move_to(mid)
     return VGroup(edge, lbl)
+
+
+def highlight_box(obj, color_border=BLACK, fill_color=YELLOW, fill_opacity=0.35,
+                  buff=0.0, stroke_width=1.5, dashed=False, num_dashes=50):
+    bg = BackgroundRectangle(
+        obj,
+        color=color_border,
+        fill_color=fill_color,
+        fill_opacity=fill_opacity,
+        buff=buff
+    ).set_z_index(0)
+
+    rect = SurroundingRectangle(
+        obj,
+        color=color_border,
+        buff=buff,
+        stroke_width=stroke_width
+    ).set_z_index(0)
+
+    if dashed:
+        rect = DashedVMobject(rect, num_dashes=num_dashes)
+
+    return VGroup(bg, rect)

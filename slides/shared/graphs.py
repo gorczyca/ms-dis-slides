@@ -37,4 +37,26 @@ def fixed_arrow_graph(n1, n2, tip_h=0.2, tip_w=0.16, stroke=2, color=BLACK):
     base_center = end
     apex = end + u * tip_h
     tip = Polygon(apex, base_center - w, base_center + w).set_fill(color, 1).set_stroke(width=0)
-    return VGroup(shaft, tip)
+    return VGroup(shaft, tip).set_z_index(99)
+
+
+def curved_arrow(n1, n2, bend=0.6, color=BLACK, stroke=2):
+    c1 = n1.get_center() if hasattr(n1, "get_center") else np.array(n1, float)
+    c2 = n2.get_center() if hasattr(n2, "get_center") else np.array(n2, float)
+
+    mid = (c1 + c2) / 2
+    normal = rotate_vector(c2 - c1, PI / 2)
+    ctrl = mid + normalize(normal) * bend
+
+    start = n1.point_at_angle(angle_of_vector(c2 - c1)) if hasattr(n1, "point_at_angle") else c1
+    end = n2.point_at_angle(angle_of_vector(c1 - c2)) if hasattr(n2, "point_at_angle") else c2
+
+    shaft = CubicBezier(start, ctrl, ctrl, end, color=color, stroke_width=stroke)
+
+    p1 = shaft.point_from_proportion(0.97)
+    p2 = shaft.get_end()
+    ang = angle_of_vector(p2 - p1)
+
+    tip = ArrowTriangleFilledTip(color=color).scale(0.5).move_to(p2).rotate(ang + PI)
+
+    return VGroup(shaft, tip).set_z_index(99)
