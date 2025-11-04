@@ -614,7 +614,7 @@ class S04AFCode(BaseSlide):
         replace_animate(VGroup(highlighted_third, diagram), VGroup(instance_group, color_nodes, new_color_nodes))
         s.next_slide()
         # highlight_box()
-        box = highlight_box(graph_obj_cp[1][-1], buff=0.15)
+        box = highlight_box(graph_obj_cp[1][-1], buff=0.075)
         s.play(FadeIn(box))
         # s.next_slide()
         # s.play(Indicate(graph_obj_cp[1][-1]), color=GREEN)
