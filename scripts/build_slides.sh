@@ -26,11 +26,19 @@ mkdir -p "$SITE"
 
 export PYTHONPATH="${PYTHONPATH_IN}${PYTHONPATH:+:${PYTHONPATH}}"
 
+# render() {
+#   while read -r file scene || [[ -n "${file:-}${scene:-}" ]]; do
+#     [[ -z "${file:-}" || "${file:0:1}" == "#" ]] && continue
+#     echo "Render: $file $scene"
+#     PYTHONPATH="$PYTHONPATH" manim $MANIM_FLAGS "$file" "$scene"
+#   done < "$SCENES_FILE"
+# }
+
 render() {
   while read -r file scene || [[ -n "${file:-}${scene:-}" ]]; do
     [[ -z "${file:-}" || "${file:0:1}" == "#" ]] && continue
-    echo "Render: $file $scene"
-    PYTHONPATH="$PYTHONPATH" manim $MANIM_FLAGS "$file" "$scene"
+    echo "Render (4K): $file $scene"
+    PYTHONPATH="$PYTHONPATH" manim -r 3840,2160 $MANIM_FLAGS "$file" "$scene"
   done < "$SCENES_FILE"
 }
 
@@ -41,9 +49,24 @@ html() {
   sed -i 's|<title>.*</title>|<title>MS-DIS Slides</title>|' "$SITE/index.html"
 }
 
+# pdf() {
+#   mapfile -t scenes < <(awk '!/^#/ && NF{print $2}' "$SCENES_FILE")
+#   echo "PDF (combined): ${scenes[*]} -> $SITE/slides.pdf"
+#   PYTHONPATH="$PYTHONPATH" manim-slides convert $SLIDES_FLAGS "${scenes[@]}" "$SITE/slides.pdf"
+# }
+
+pdf() {
+  mapfile -t scenes < <(awk '!/^#/ && NF{print $2}' "$SCENES_FILE")
+  echo "PDF (combined, high-res): ${scenes[*]} -> $SITE/slides.pdf"
+  PYTHONPATH="$PYTHONPATH" manim-slides convert -r 3840,2160 $SLIDES_FLAGS "${scenes[@]}" "$SITE/slides.pdf"
+}
+
+
+
 case "$MODE" in
   render) render ;;
   html)   html ;;
+  pdf)    pdf ;;
   all)    render; html ;;
   *) echo "Unknown MODE: $MODE" >&2; exit 2 ;;
 esac
