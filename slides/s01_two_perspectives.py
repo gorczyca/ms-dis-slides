@@ -2,7 +2,7 @@ from manim import *
 from manim_slides import Slide
 
 from slides.shared.base_slide import BaseSlide
-from slides.shared.wrappers import MathTexWrapper, TexWrapper, TextWrapper
+from slides.shared.wrappers import MathTexWrapper, TexWrapper, TextWrapper, bullet_line, tex_paragraph
 from slides.shared.colors import D_BLUE, LAT_ORANGE
 
 from slides.shared.slide_count import SLIDES, SLIDES_NO
@@ -14,22 +14,7 @@ WIDTH = 13
 BUFF=1.5
 
 
-def bullet_line(text, width=WIDTH, font_size=FONT_SIZE_TEXT):
-    bullet = TexWrapper(r"$\bullet$", font_size=font_size)
-    body = TexWrapper(
-        r"\parbox[t]{%scm}{\sffamily %s}" % (width, text),
-        font_size=font_size,
-        color=BLACK,
-    )
-    body.next_to(bullet, RIGHT, aligned_edge=UP, buff=0.25).shift(UP*0.1)
-    return VGroup(bullet, body).align_to(bullet, LEFT)
 
-def tex_paragraph(text, width=WIDTH, font_size=FONT_SIZE_TEXT, color=BLACK):
-    return TexWrapper(
-        r"\parbox[t]{%scm}{\sffamily %s}" % (width, text),
-        font_size=font_size,
-        color=color,
-    )
 
 
 class S01TwoPerspectives(BaseSlide):

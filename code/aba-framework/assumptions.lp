@@ -1,1 +1,2 @@
-assumption(b;d;...).                                           
+assumption(b).                                           
+assumption(d).                                           

@@ -48,9 +48,9 @@ def set_asp_lexer():
     cm.get_lexer_by_name = _asp_get
 
 
-    STYLE_MAP["aspvs"] = "__main__:ASPVSStyle"   # register alias
-    setattr(cm, "DEFAULT_CODE_STYLE", "aspvs")   # force Code's default style
-    setattr(cm, "DEFAULT_STYLE", "aspvs")        # (covers other versions)
+    # STYLE_MAP["aspvs"] = "__main__:ASPVSStyle"   # register alias
+    # setattr(cm, "DEFAULT_CODE_STYLE", "aspvs")   # force Code's default style
+    # setattr(cm, "DEFAULT_STYLE", "aspvs")        # (covers other versions)
 
 
 def get_asp_code(code_path, font_size=24, add_line_numbers=False, buff=0.2, line_numbers_from=1):

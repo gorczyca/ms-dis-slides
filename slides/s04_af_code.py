@@ -623,6 +623,7 @@ class S04AFCode(BaseSlide):
         s.play(Circumscribe(graph_obj_cp, color=GREEN))
         s.next_slide()
         s.play(FadeOut(box))
+        s.next_slide()
         replace_animate(VGroup(instance_group, color_nodes, new_color_nodes), VGroup(highlighted_third, diagram))
         s.next_slide()
         highlighted_third_yes = highlight(third_yes)
