@@ -619,8 +619,6 @@ class S04AFCode(BaseSlide):
         HIGHLIGHT_BUFF=0.05
         box = highlight_box(graph_obj_cp[1][-1], buff=HIGHLIGHT_BUFF, fill_opacity=HIGHLIGHT_FILL_OPACITY)
         s.play(FadeIn(box))
-        # s.next_slide()
-        # s.play(Indicate(graph_obj_cp[1][-1]), color=GREEN)
         s.next_slide()
         s.play(Circumscribe(graph_obj_cp, color=GREEN))
         s.next_slide()
