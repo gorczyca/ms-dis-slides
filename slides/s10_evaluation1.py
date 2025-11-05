@@ -72,7 +72,7 @@ def create_plot(df, ax, color, border_style, border_color, bg_color, fg_color, x
 def curve_label(ax, x, y, x_at, text, bg=BLUE_E, fg=WHITE, font="Cousine", offset=UR*0.0,
                 border_color=WHITE, border_width=2, border_style="solid", font_size=18):
     p = compute_pos(ax, x, y, x_at)
-    lbl = Text(text, font_size=font_size, color=fg, font=font, fill_opacity=1)
+    lbl = Text(text, font_size=font_size, color=fg, font=font, fill_opacity=1).set_z_index(999)
     w, h = lbl.width + 0.3, lbl.height + 0.2
 
     fill_box = RoundedRectangle(corner_radius=0.05, width=w, height=h,
@@ -84,7 +84,7 @@ def curve_label(ax, x, y, x_at, text, bg=BLUE_E, fg=WHITE, font="Cousine", offse
     elif border_style == "dashed":
         outline = DashedVMobject(outline, num_dashes=30, dashed_ratio=0.5)
 
-    g = VGroup(fill_box, outline, lbl).move_to(p).shift(offset).set_z_index(99)
+    g = VGroup(fill_box, outline, lbl).move_to(p).shift(offset).set_z_index(50)
     return g
 
 

@@ -25,12 +25,20 @@ def make_col_highlight(tbl, col, color=HIGHLIGHT_COLOR, opacity=0.5, first_row=2
     return rect
 
 
-def make_plot_highlight(*plots, color=HIGHLIGHT_COLOR, width=4, opacity=0.5, z=100):
+def make_plot_highlight(*plots, color=HIGHLIGHT_COLOR, width=3, opacity=0.5, z=100):
     return VGroup(*[
         p.copy().set_stroke(color=color, width=width, opacity=opacity).set_z_index(0)
         for p in plots
     ])
 
+def make_plot_label_highlight(*labels, color=HIGHLIGHT_COLOR, opacity=0.25, z=99):
+    return VGroup(*[
+        SurroundingRectangle(lbl, buff=0.00)
+        .set_fill(color, opacity)
+        .set_stroke(width=0)
+        .set_z_index(z)
+        for lbl in labels
+    ])
 
 # ---------- Your slide ----------
 class S11Evaluation2(BaseSlide):
@@ -104,6 +112,7 @@ class S11Evaluation2(BaseSlide):
         # lets fucking goooooooooooo
         # SCALE_FACTOR = 0.6
         FONT_SIZE = 18
+        FONT_SIZE_INFO = 25
         table = Table(
             [
                 ['xxxxx', 'xxx', 'xxx', 'xxx', 'xxx', 'xxx', 'xxx', 'xxx'],
@@ -119,13 +128,13 @@ class S11Evaluation2(BaseSlide):
                 TextWrapper(' ', font_size=FONT_SIZE).set_z_index(
                     8),  # .scale(SCALE_FACTOR),
                 # .scale(SCALE_FACTOR),
-                TextWrapper('#t-out.', font_size=FONT_SIZE).set_z_index(8),
-                TextWrapper('#inc', font_size=FONT_SIZE).set_z_index(
+                TexWrapper(r'\sffamily \#t-out.', font_size=FONT_SIZE_INFO).align_to(LEFT).set_z_index(8),
+                TexWrapper(r'\sffamily \#inc.', font_size=FONT_SIZE_INFO).align_to(LEFT).set_z_index(
                     8),  # .scale(SCALE_FACTOR),
-                TextWrapper('time[h]', font_size=FONT_SIZE).set_z_index(
+                TexWrapper(r'\sffamily time[h]', font_size=FONT_SIZE_INFO).align_to(LEFT).set_z_index(
                     8),  # .scale(SCALE_FACTOR),
                 # TextWrapper(r'% acc.', font_size=FONT_SIZE).set_z_index(8),#.scale(SCALE_FACTOR),
-                TextWrapper(r'%acc. t', font_size=FONT_SIZE).set_z_index(
+                TexWrapper(r'\sffamily \%acc. t', font_size=FONT_SIZE_INFO).align_to(LEFT).set_z_index(
                     8),  # .scale(SCALE_FACTOR)
             ],
             element_to_mobject=lambda s: TextWrapper(s, font_size=FONT_SIZE).set_z_index(
@@ -181,9 +190,13 @@ class S11Evaluation2(BaseSlide):
                                     make_col_highlight(table, 7))
 
         exact_solvers_plots = make_plot_highlight(flex_plot, ms_plot)
+        # exact_solvers_plots_lbls = make_plot_label_highlight(flex_lbl, ms_lbl)
 
+
+        # s.play(FadeIn(exact_solvers_cols), FadeIn(exact_solvers_plots), FadeIn(exact_solvers_plots_lbls))
         s.play(FadeIn(exact_solvers_cols), FadeIn(exact_solvers_plots))
         s.next_slide()
+        # s.play(FadeOut(exact_solvers_cols), FadeOut(exact_solvers_plots), FadeOut(exact_solvers_plots_lbls))
         s.play(FadeOut(exact_solvers_cols), FadeOut(exact_solvers_plots))
         s.next_slide()
 
@@ -192,10 +205,11 @@ class S11Evaluation2(BaseSlide):
                                        make_col_highlight(table, 8))
 
         approx_1_solvers_plots = make_plot_highlight(fa25_plot, ma10_plot)
+        approx_1_solvers_plots_lbls = make_plot_label_highlight(fa25_lbl, ma10_lbl)
 
-        s.play(FadeIn(approx_1_solvers_cols), FadeIn(approx_1_solvers_plots))
+        s.play(FadeIn(approx_1_solvers_cols), FadeIn(approx_1_solvers_plots), FadeIn(approx_1_solvers_plots_lbls))
         s.next_slide()
-        s.play(FadeOut(approx_1_solvers_cols), FadeOut(approx_1_solvers_plots))
+        s.play(FadeOut(approx_1_solvers_cols), FadeOut(approx_1_solvers_plots), FadeOut(approx_1_solvers_plots_lbls))
         s.next_slide()
 
         ##
@@ -203,10 +217,11 @@ class S11Evaluation2(BaseSlide):
                                        make_col_highlight(table, 9))
 
         approx_2_solvers_plots = make_plot_highlight(fa05_plot, ma05_plot)
+        approx_2_solvers_plots_lbls = make_plot_label_highlight(fa05_lbl, ma05_lbl)
 
-        s.play(FadeIn(approx_2_solvers_cols), FadeIn(approx_2_solvers_plots))
+        s.play(FadeIn(approx_2_solvers_cols), FadeIn(approx_2_solvers_plots), FadeIn(approx_2_solvers_plots_lbls))
         s.next_slide()
-        s.play(FadeOut(approx_2_solvers_cols), FadeOut(approx_2_solvers_plots))
+        s.play(FadeOut(approx_2_solvers_cols), FadeOut(approx_2_solvers_plots), FadeOut(approx_2_solvers_plots_lbls))
 
 
 class S11Evaluation2Scene(Slide):
