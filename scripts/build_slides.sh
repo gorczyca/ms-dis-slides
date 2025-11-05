@@ -38,6 +38,7 @@ html() {
   mapfile -t scenes < <(awk '!/^#/ && NF{print $2}' "$SCENES_FILE")
   echo "HTML (combined): ${scenes[*]} -> $SITE/index.html"
   PYTHONPATH="$PYTHONPATH" manim-slides convert $SLIDES_FLAGS "${scenes[@]}" "$SITE/index.html"
+  sed -i 's|<title>.*</title>|<title>MS-DIS Slides</title>|' "$SITE/index.html"
 }
 
 case "$MODE" in
