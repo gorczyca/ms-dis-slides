@@ -5,6 +5,10 @@ from slides.shared.base_slide import BaseSlide
 from slides.shared.wrappers import MathTexWrapper, TexWrapper
 import slides.shared.colors as custom_colors
 
+from slides.shared.graphs import make_dispute_diagram
+from slides.shared.animator import DisputeDiagramAnimator
+
+
 from slides.shared.slide_count import SLIDES, SLIDES_NO
 SLIDE_NO = 0
 
@@ -18,6 +22,7 @@ class Title(BaseSlide):
         bg = SVGMobject('img/logo/tud-logo.svg')
         bg.set_color(custom_colors.PRIMARY_COLOR)
         bg.move_to(ORIGIN, aligned_edge=ORIGIN).scale(15).shift(RIGHT*1.25+UP*7)
+
 
 
         s.add(bg)
@@ -40,7 +45,21 @@ class Title(BaseSlide):
         iccl = ImageMobject("img/logo/iccl_logo.png").scale_to_fit_width(3.5).to_corner(DR).shift(RIGHT*0.25) 
             
 
+
+
         self.slide.add(tud, title, authors, venue_and_date, iccl)
+
+        diagram = make_dispute_diagram().scale(0.8).move_to(ORIGIN).shift(RIGHT*2.5+UP)
+        s.add(diagram)
+
+        # animator = DisputeDiagramAnimator(pos=ORIGIN)
+        # animator.add_to(s)
+
+        # run the looped animation (will draw, reset, draw, ...)
+        # animator.loop(s, loops=4, step_time=0.6)
+
+        # when the loop is done, we proceed to the next slide
+        s.next_slide()
 
 
 class TitleScene(Slide):  
