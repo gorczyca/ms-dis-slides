@@ -35,7 +35,7 @@ class S02Bias(BaseSlide):
 
         reasons_text = TexWrapper(r'Some likely reasons:', font_size=FONT_SIZE_TEXT).to_edge(LEFT).shift(DOWN+RIGHT*.25)
         reasons_items = [
-            r"Simplificy and popularity of Dung's AFs",
+            r"Simplicity and popularity of Dung's AFs",
             r'Reduction-based methods (\textbf{SAT/ASP} work especially well for inference)'
         ]
 
