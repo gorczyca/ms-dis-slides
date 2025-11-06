@@ -52,7 +52,7 @@ class Title(BaseSlide):
         diagram = make_dispute_diagram().scale(0.8).move_to(ORIGIN).shift(RIGHT*2.5+UP)
         s.wait(1)
         # s.play(DrawBorderThenFill(diagram, run_time=5, lag_ratio=0.5))
-        s.play(Create(diagram, run_time=20, lag_ratio=0.5))
+        s.play(Create(diagram, run_time=15, lag_ratio=0.5))
         s.add(diagram)
 
         # animator = DisputeDiagramAnimator(pos=ORIGIN)
