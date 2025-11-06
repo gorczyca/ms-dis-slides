@@ -138,25 +138,26 @@ def make_dispute_diagram():
 
     # --- EDGES (default z, they can go under nodes because nodes are 99) ---
     edges = VGroup(
-        fixed_arrow_graph(d, s_node.get_left() + UP * 0.1, color=BLACK),
-        fixed_arrow_graph(p, s_node.get_left(), color=BLACK),
-        fixed_arrow_graph(a, s_node.get_left() + DOWN * 0.1, color=BLACK),
+        fixed_arrow_graph(d, s_node.get_left() + UP * 0.1, color=BLACK),    # 0
+        fixed_arrow_graph(p, s_node.get_left(), color=BLACK),               # 1
+        fixed_arrow_graph(a, s_node.get_left() + DOWN * 0.1, color=BLACK),  # 2
 
-        fixed_arrow_graph(xc, p.get_left(), color=BLACK),
-        fixed_arrow_graph(f, xc.get_left(), color=BLACK),
+        fixed_arrow_graph(xc, p.get_left(), color=BLACK),                   # 3
 
-        fixed_arrow_graph(e, xd.get_left(), color=BLACK),
-        fixed_arrow_graph(xd, d.get_left(), color=RED),
+        fixed_arrow_graph(f, xc.get_left(), color=BLACK),                   # 4
 
-        fixed_arrow_graph(b, xa.get_left() + UP * 0.1, color=BLACK),
-        fixed_arrow_graph(t, xa.get_left() + DOWN * 0.1, color=BLACK),
-        fixed_arrow_graph(xa, a.get_left(), color=RED),
+        fixed_arrow_graph(e, xd.get_left(), color=BLACK),                   # 5
+        fixed_arrow_graph(xd, d.get_left(), color=RED),                     # 6
 
-        fixed_arrow_graph(c, t.get_left(), color=BLACK),
+        fixed_arrow_graph(b, xa.get_left() + UP * 0.1, color=BLACK),        # 7
+        fixed_arrow_graph(t, xa.get_left() + DOWN * 0.1, color=BLACK),      # 8
+        fixed_arrow_graph(xa, a.get_left(), color=RED),                     # 9
 
-        fixed_arrow_graph(xe, e.get_left(), color=RED),
+        fixed_arrow_graph(c, t.get_left(), color=BLACK),                    # 10
 
-        curved_arrow(xc.get_bottom(), c.get_right() + 0.1 * DOWN + 0.2 * RIGHT, bend=1, color=RED),
+        fixed_arrow_graph(xe, e.get_left(), color=RED),                     # 11
+
+        curved_arrow(xc.get_bottom(), c.get_right() + 0.1 * DOWN + 0.2 * RIGHT, bend=1, color=RED), # 12
     )
 
     # --- HIGHLIGHT BOXES (preserving your z orders) ---
@@ -167,7 +168,7 @@ def make_dispute_diagram():
         fill_opacity=1,
         fill_color=PROP_COLOR,
         buff=0.1,
-        dashed=True
+        dashed=False
     ).set_z_index(3)
 
     # these two were set_z_index(0)
@@ -184,8 +185,8 @@ def make_dispute_diagram():
         fill_opacity=1,
         fill_color=OPPONENT_COLOR,
         buff=0.15,
-        dashed=True
-    ).set_z_index(0)
+        dashed=False
+    ).set_z_index(3)
 
     # c_t was set_z_index(5)
     c_t_block = highlight_box(
@@ -193,7 +194,7 @@ def make_dispute_diagram():
         fill_opacity=1,
         fill_color=DEFEAT_COLOR,
         buff=0.1,
-        dashed=True
+        dashed=False
     ).set_z_index(5)
 
     # opp_arg had no z in your code, leave default
@@ -210,7 +211,7 @@ def make_dispute_diagram():
         fill_opacity=1,
         fill_color=PROP_COLOR,
         buff=0.15,
-        dashed=True
+        dashed=False
     ).set_z_index(4)
 
     # f_xc was set_z_index(5)
@@ -219,7 +220,7 @@ def make_dispute_diagram():
         fill_opacity=1,
         fill_color=PROP_COLOR,
         buff=0.1,
-        dashed=True
+        dashed=False
     ).set_z_index(5)
 
     # s_arg was set_z_index(0)
@@ -233,19 +234,61 @@ def make_dispute_diagram():
 
     diagram = VGroup(
         # highlights first (bottom layers)
-        s_arg_block,
-        e_xd_block,
-        t_b_xa_block,
-        c_t_block,
-        opp_arg_block,
-        xc_p_block,
-        f_xc_block,
-        proponent_core,
         # nodes
-        s_node, d, p, a,
-        xc, f, xd, e, xa, b, t, c, xe,
-        # edges
-        edges,
+        s_node, d, p, a,  # s <- d,p,a
+        edges[0:3],
+        proponent_core,
+        # s_arg_block,  # show P argument
+        xd, e,            # xd <- e
+        edges[5],    
+        edges[6],      # show attack
+
+        xa, b, t,      # xa <-b,t
+        edges[7:9],
+        t_b_xa_block,
+        edges[9],      # show attack
+
+        c,
+        edges[10],      # t <-c
+        opp_arg_block,
+
+        xc,
+        edges[3],      # 
+        xc_p_block,
+
+        f,
+        edges[4],      # 
+        f_xc_block,
+        s_arg_block,
+        curved_arrow(xc.get_bottom(), c.get_right() + 0.1 * DOWN + 0.2 * RIGHT, bend=1, color=RED), # 12
+        c_t_block,
+
+        xe,
+        edges[11],
+        e_xd_block
+
+        # xc,
+        # edges[3],
+        # f,
+        # edges[4],
+
+
+
+
+        
+        # xc,
+        # edges[3], 
+        # f, xd, e, xa, b, t, c, xe,
+        # # edges
+        # edges,
+        # e_xd_block,
+        # t_b_xa_block,
+        # c_t_block,
+        # opp_arg_block,
+        # xc_p_block,
+        # f_xc_block,
+        # proponent_core,
+
     ).move_to(ORIGIN)
 
     return diagram
