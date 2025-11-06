@@ -160,6 +160,7 @@ def make_dispute_diagram():
         curved_arrow(xc.get_bottom(), c.get_right() + 0.1 * DOWN + 0.2 * RIGHT, bend=1, color=RED), # 12
     )
 
+
     # --- HIGHLIGHT BOXES (preserving your z orders) ---
 
     # this was .set_z_index(3) in your anim
