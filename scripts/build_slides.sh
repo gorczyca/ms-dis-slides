@@ -9,6 +9,32 @@ MANIM_FLAGS=""
 # For a single self-contained HTML use --one-file; drop it to get an assets folder.
 SLIDES_FLAGS="--offline --one-file"
 
+# --- Quick reference -------------------------------------------------------
+#  Local full deck (4K renders + HTML):
+#    ./scripts/build_slides.sh all --scenes-file scenes.list --site site --pythonpath .
+#
+#  Faster local iteration (720p renders only):
+#    MANIM_RENDER_RES=1280,720 ./scripts/build_slides.sh render
+#
+#  HTML-only rebuild (assumes scenes already rendered):
+#    ./scripts/build_slides.sh html
+#
+#  PDF export (override resolution if needed):
+#    ./scripts/build_slides.sh pdf --pdf-res 1920,1080
+#
+#  On CI we automatically downgrade to 1280x720. Override via:
+#    CI_RENDER_RES=1920,1080 CI_PDF_RES=1920,1080 ./scripts/build_slides.sh all
+# ---------------------------------------------------------------------------
+
+# Default to 4K locally, but scale down automatically on CI to keep runtimes sane.
+RENDER_RES="${MANIM_RENDER_RES:-3840,2160}"
+PDF_RES="${MANIM_PDF_RES:-$RENDER_RES}"
+PDF_RES_EXPLICIT=false
+if [[ "${CI:-}" == "true" ]]; then
+  RENDER_RES="${CI_RENDER_RES:-1280,720}"
+  PDF_RES="${CI_PDF_RES:-1280,720}"
+fi
+
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --scenes-file) SCENES_FILE="$2"; shift 2 ;;
@@ -16,6 +42,18 @@ while [[ $# -gt 0 ]]; do
     --pythonpath)  PYTHONPATH_IN="$2"; shift 2 ;;
     --manim-flags) MANIM_FLAGS="$2"; shift 2 ;;
     --slides-flags) SLIDES_FLAGS="$2"; shift 2 ;;
+    --render-res)
+      RENDER_RES="$2"
+      if [[ "$PDF_RES_EXPLICIT" == "false" ]]; then
+        PDF_RES="$2"
+      fi
+      shift 2
+      ;;
+    --pdf-res)
+      PDF_RES="$2"
+      PDF_RES_EXPLICIT=true
+      shift 2
+      ;;
     *) echo "Unknown arg: $1" >&2; exit 2 ;;
   esac
 done
@@ -35,10 +73,21 @@ export PYTHONPATH="${PYTHONPATH_IN}${PYTHONPATH:+:${PYTHONPATH}}"
 # }
 
 render() {
+  local res_args=()
+  if [[ -n "${RENDER_RES:-}" ]]; then
+    res_args=(-r "$RENDER_RES")
+  fi
+
   while read -r file scene || [[ -n "${file:-}${scene:-}" ]]; do
     [[ -z "${file:-}" || "${file:0:1}" == "#" ]] && continue
-    echo "Render (4K): $file $scene"
-    PYTHONPATH="$PYTHONPATH" manim -r 3840,2160 $MANIM_FLAGS "$file" "$scene"
+    echo "Render (${RENDER_RES:-default}): $file $scene"
+    local cmd=(manim "${res_args[@]}")
+    if [[ -n "${MANIM_FLAGS:-}" ]]; then
+      # shellcheck disable=SC2206
+      cmd+=($MANIM_FLAGS)
+    fi
+    cmd+=("$file" "$scene")
+    PYTHONPATH="$PYTHONPATH" "${cmd[@]}"
   done < "$SCENES_FILE"
 }
 
@@ -57,8 +106,17 @@ html() {
 
 pdf() {
   mapfile -t scenes < <(awk '!/^#/ && NF{print $2}' "$SCENES_FILE")
-  echo "PDF (combined, high-res): ${scenes[*]} -> $SITE/slides.pdf"
-  PYTHONPATH="$PYTHONPATH" manim-slides convert -r 3840,2160 $SLIDES_FLAGS "${scenes[@]}" "$SITE/slides.pdf"
+  echo "PDF (combined, ${PDF_RES:-default}): ${scenes[*]} -> $SITE/slides.pdf"
+  local cmd=(manim-slides convert)
+  if [[ -n "${PDF_RES:-}" ]]; then
+    cmd+=(-r "$PDF_RES")
+  fi
+  if [[ -n "${SLIDES_FLAGS:-}" ]]; then
+    # shellcheck disable=SC2206
+    cmd+=($SLIDES_FLAGS)
+  fi
+  cmd+=("${scenes[@]}" "$SITE/slides.pdf")
+  PYTHONPATH="$PYTHONPATH" "${cmd[@]}"
 }
 
 
