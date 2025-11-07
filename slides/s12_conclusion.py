@@ -2,7 +2,7 @@ from manim import *
 from manim_slides import Slide
 
 from slides.shared.base_slide import BaseSlide
-from slides.shared.wrappers import MathTexWrapper, TexWrapper, TextWrapper
+from slides.shared.wrappers import MathTexWrapper, TexWrapper, TextWrapper, bullet_line
 from slides.shared.colors import D_BLUE, LAT_ORANGE
 
 from slides.shared.slide_count import SLIDES, SLIDES_NO
@@ -10,19 +10,26 @@ SLIDE_NO = 12
 
 
 class S12Conclusion(BaseSlide):
-    TITLE = r'Conclusion (TODO)'
+    TITLE = r'Conclusion'
 
     def create_content(self):
         s = self.slide
 
-        bullets = BulletedList(
-            r'\sffamily -- summarize the work',
-            r'\sffamily -- say we have also variant for different semantics',
-            r'\sffamily -- we also have graphical interface, interactive',
-            r'\sffamily -- future work',
-            font_size=30, color=BLACK, buff=0.2)
+        items = [
+            r'\textbf{first multi-shot ASP implementation} of argument games (ABA \& AFs)',
+            r'modular and declarative design separating \textbf{formal definitions} (in ASP) from \textbf{procedural control} (in Python)',
+            r'easily extensible -- \textbf{visualization} or \textbf{additional semantics} can be added by providing only a few extra ASP rules',
+            r'\textbf{outperforms} existing dispute-based ABA systems',
+            r'establishes multi-shot ASP as a \textbf{general, adaptable framework} for implementing and comparing argument games across formalisms'
+        ]
 
-        s.add(bullets)
+        items_group = VGroup(*[bullet_line(t) for t in items]).arrange(
+            DOWN, aligned_edge=LEFT, buff=0.25).to_edge(LEFT).shift(RIGHT*.25)
+
+        for b in items_group:
+            s.play(FadeIn(b, shift=0.2*RIGHT))
+            s.next_slide()
+
         s.wait()
 
 
