@@ -297,3 +297,14 @@ def tex_paragraph(text, width=WIDTH, font_size=FONT_SIZE_TEXT, color=BLACK):
         font_size=font_size,
         color=color,
     )
+
+
+def enum_line(num, text, width=WIDTH, font_size=FONT_SIZE_TEXT):
+    label = TexWrapper(rf"\textsf{{{num}.}}", font_size=font_size)
+    body = TexWrapper(
+        r"\parbox[t]{%scm}{\sffamily %s}" % (width, text),
+        font_size=font_size,
+        color=BLACK,
+    )
+    body.next_to(label, RIGHT, aligned_edge=UP, buff=0.25) #.shift(UP*0.1)
+    return VGroup(label, body).align_to(label, LEFT)
