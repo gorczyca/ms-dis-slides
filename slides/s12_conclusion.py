@@ -18,9 +18,9 @@ class S12Conclusion(BaseSlide):
         items = [
             r'\textbf{first multi-shot ASP implementation} of argument games (ABA \& AFs)',
             r'modular and declarative design separating \textbf{formal definitions} (in ASP) from \textbf{procedural control} (in Python)',
-            r'easily extensible -- \textbf{visualization} or \textbf{additional semantics} can be added by providing only a few extra ASP rules',
-            r'\textbf{outperforms} existing dispute-based ABA systems',
-            r'establishes multi-shot ASP as a \textbf{general, adaptable framework} for implementing and comparing argument games across formalisms'
+            r'easily extensible -- \textbf{visualization} (via \texttt{clingraph} [Hahn et al. 2024]) or \textbf{additional semantics} (e.g. stable) can be added by providing only a few extra ASP rules',
+            r'\textbf{outperforms} existing dispute-based ABA systems (e.g. flexABle)',
+            r'suggests multi-shot ASP as a \textbf{general, adaptable framework} for implementing and comparing argument games across formalisms'
         ]
 
         items_group = VGroup(*[bullet_line(t) for t in items]).arrange(

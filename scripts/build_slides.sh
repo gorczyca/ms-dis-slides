@@ -3,7 +3,7 @@ set -euo pipefail
 
 MODE="${1:-}"; shift || true
 SCENES_FILE="scenes.list"
-SITE="site"
+SITE="site"z
 PYTHONPATH_IN="."
 MANIM_FLAGS=""
 # For a single self-contained HTML use --one-file; drop it to get an assets folder.
@@ -15,24 +15,23 @@ SLIDES_FLAGS="--offline --one-file"
 #
 #  Faster local iteration (720p renders only):
 #    MANIM_RENDER_RES=1280,720 ./scripts/build_slides.sh render
+#    MANIM_RENDER_RES=1920,1080 ./scripts/build_slides.sh render
 #
 #  HTML-only rebuild (assumes scenes already rendered):
 #    ./scripts/build_slides.sh html
 #
-#  PDF export (override resolution if needed):
-#    ./scripts/build_slides.sh pdf --pdf-res 1920,1080
+#  PDF export (uses existing renders; no extra resolution flags needed):
+#    ./scripts/build_slides.sh pdf
 #
 #  On CI we automatically downgrade to 1280x720. Override via:
-#    CI_RENDER_RES=1920,1080 CI_PDF_RES=1920,1080 ./scripts/build_slides.sh all
+#    CI_RENDER_RES=1920,1080 ./scripts/build_slides.sh all
+#    CI_RENDER_RES=1920,1080 ./scripts/build_slides.sh all --scenes-file scenes.list --site site --pythonpath 
 # ---------------------------------------------------------------------------
 
 # Default to 4K locally, but scale down automatically on CI to keep runtimes sane.
 RENDER_RES="${MANIM_RENDER_RES:-3840,2160}"
-PDF_RES="${MANIM_PDF_RES:-$RENDER_RES}"
-PDF_RES_EXPLICIT=false
 if [[ "${CI:-}" == "true" ]]; then
   RENDER_RES="${CI_RENDER_RES:-1280,720}"
-  PDF_RES="${CI_PDF_RES:-1280,720}"
 fi
 
 while [[ $# -gt 0 ]]; do
@@ -44,14 +43,6 @@ while [[ $# -gt 0 ]]; do
     --slides-flags) SLIDES_FLAGS="$2"; shift 2 ;;
     --render-res)
       RENDER_RES="$2"
-      if [[ "$PDF_RES_EXPLICIT" == "false" ]]; then
-        PDF_RES="$2"
-      fi
-      shift 2
-      ;;
-    --pdf-res)
-      PDF_RES="$2"
-      PDF_RES_EXPLICIT=true
       shift 2
       ;;
     *) echo "Unknown arg: $1" >&2; exit 2 ;;

@@ -6,7 +6,6 @@ from slides.shared.wrappers import MathTexWrapper, TexWrapper
 import slides.shared.colors as custom_colors
 
 from slides.shared.graphs import make_dispute_diagram
-from slides.shared.animator import DisputeDiagramAnimator
 
 
 from slides.shared.slide_count import SLIDES, SLIDES_NO
@@ -56,9 +55,6 @@ class Title(BaseSlide):
         # s.wait(1)
         # s.play(DrawBorderThenFill(diagram, run_time=5, lag_ratio=0.5))
         # s.play(Create(diagram, run_time=15, lag_ratio=0.5))
-
-        # animator = DisputeDiagramAnimator(pos=ORIGIN)
-        # animator.add_to(s)
 
         # run the looped animation (will draw, reset, draw, ...)
         # animator.loop(s, loops=4, step_time=0.6)

@@ -8,22 +8,21 @@ from slides.shared.colors import D_BLUE, LAT_ORANGE
 from slides.shared.slide_count import SLIDES, SLIDES_NO
 from slides.shared.asp_lexer import get_asp_code, set_asp_lexer, create_code_block
 
-set_asp_lexer()
-
 FONT_SIZE_CODE = 17
 
+set_asp_lexer()
 
-class S13Extra(BaseSlide):
-    TITLE = r'Extension: Stable Semantics'
+class S14ExtraVis(BaseSlide):
+    TITLE = r'Extension: Visualisation'
 
     def create_content(self):
         s = self.slide
-        stable_code = get_asp_code('./code/stable-extension.lp', font_size=FONT_SIZE_CODE, add_line_numbers=True)
+        stable_code = get_asp_code('./code/vis.lp', font_size=FONT_SIZE_CODE, add_line_numbers=True)
         s.add(stable_code)
         s.wait()
 
 
-class S13ExtraScene(Slide):
+class S14ExtraVisScene(Slide):
     def construct(self):
-        S13Extra(self, show_footer=False)
+        S14ExtraVis(self, show_footer=False)
         self.wait()

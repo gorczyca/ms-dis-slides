@@ -141,7 +141,7 @@ def make_dispute_diagram():
         fixed_arrow_graph(d, s_node.get_left() + UP * 0.1, color=BLACK),    # 0
         fixed_arrow_graph(p, s_node.get_left(), color=BLACK),               # 1
         fixed_arrow_graph(a, s_node.get_left() + DOWN * 0.1, color=BLACK),  # 2
-
+        
         fixed_arrow_graph(xc, p.get_left(), color=BLACK),                   # 3
 
         fixed_arrow_graph(f, xc.get_left(), color=BLACK),                   # 4
