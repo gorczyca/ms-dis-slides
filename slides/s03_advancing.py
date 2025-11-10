@@ -26,29 +26,37 @@ class S03Advancing(BaseSlide):
             r'\textbf{Multi-shot ASP} allows updating and re-solving $\rightarrow$ avoids unnecessary grounding overhead',
             r'We present the \textbf{first use of multi-shot ASP} for argumentation games',
             r"Focus on \textbf{ABA dispute derivations} and \textbf{Dung's AFs}",
-            r'\textbf{Rule-based flexible ABA disputes} from [Diller, Gaggl, Gorczyca 2021], elaboration on [Toni 2013], [Craven, Toni 2016], [Cyras et al. 2018]',
+            r'\textbf{Rule-based flexible ABA disputes} from [Diller, Gaggl, Gorczyca 2021], elaboration on [Toni 2013], [Craven, Toni 2016]',
             r'\textbf{Multi-shot environment} provided by \texttt{clingo}~[Gebser et al. 2019]',
-            r"Offers a \textbf{declarative} and more streamlined implementation of argument games",
-            r"Provides a \textbf{general framework} for implementing and comparing argument games",
+            # r"Offers a \textbf{declarative} and more streamlined implementation of argument games",
+            # r"Provides a \textbf{general framework} for implementing and comparing argument games",
         ]
 
-        bullets_1 = VGroup(*[bullet_line(t) for t in items[0:6]]).arrange(DOWN, aligned_edge=LEFT, buff=0.25).to_edge(LEFT).shift(RIGHT*.25)
+        # bullets_1 = VGroup(*[bullet_line(t) for t in items[0:6]]).arrange(DOWN, aligned_edge=LEFT, buff=0.25).to_edge(LEFT).shift(RIGHT*.25)
+        # bullets_2 = VGroup(*[bullet_line(t) for t in items[6:]]).arrange(DOWN, aligned_edge=LEFT, buff=0.25).to_edge(LEFT).shift(RIGHT*.25+UP)
+        # bullets = VGroup(*[bullet_line(t) for t in items]).arrange(DOWN, aligned_edge=LEFT, buff=0.25).to_edge(LEFT).shift(RIGHT*.25+UP)
+        bullets = VGroup(*[bullet_line(t) for t in items]).arrange(DOWN, aligned_edge=LEFT, buff=0.25).to_edge(LEFT).shift(RIGHT*.25)
 
-        bullets_2 = VGroup(*[bullet_line(t) for t in items[6:]]).arrange(DOWN, aligned_edge=LEFT, buff=0.25).to_edge(LEFT).shift(RIGHT*.25+UP)
-
-
-        for b in bullets_1:
+        for b in bullets:
             s.play(FadeIn(b, shift=0.2*RIGHT))
             s.next_slide()
         
-        s.play(FadeOut(bullets_1))
-        s.remove(bullets_1)
+        s.play(FadeOut(bullets))
+        s.remove(bullets)
 
-        for b in bullets_2:
-            s.play(FadeIn(b, shift=0.2*RIGHT))
-            s.next_slide()
+        # for b in bullets_1:
+        #     s.play(FadeIn(b, shift=0.2*RIGHT))
+        #     s.next_slide()
+        
+        # s.play(FadeOut(bullets_1))
+        # s.remove(bullets_1)
 
-        next = TexWrapper(r'\textbf{Next}:', font_size=FONT_SIZE_TEXT).to_edge(LEFT).shift(DOWN*.5+RIGHT*.25)
+        # for b in bullets_2:
+        #     s.play(FadeIn(b, shift=0.2*RIGHT))
+        #     s.next_slide()
+
+        # next = TexWrapper(r'\textbf{Next}:', font_size=FONT_SIZE_TEXT).to_edge(LEFT).shift(DOWN*.5+RIGHT*.25)
+        next = TexWrapper(r'\textbf{Next}:', font_size=FONT_SIZE_TEXT).to_edge(LEFT).shift(UP+RIGHT*.25)
         next_items = [
             r"Multi-shot ASP for Dung's AFs",
             r"Extension to ABA disputes",
