@@ -64,9 +64,14 @@ class S07ABACode(BaseSlide):
  
 
         diagram = BlockDiagram().move_to(ORIGIN)
+        diagram.create_highlights()
         
         s.next_slide()    
         s.play(ReplacementTransform(code_python, diagram))
+        # s.next_slide()
+        # s.play(FadeIn(diagram))
+        s.next_slide()
+        s.play(FadeIn(diagram.get_highlight('first')))
 
         c1 = get_asp_code('./code/aba-encoding/01-base.lp', font_size=FONT_SIZE_CODE, add_line_numbers=True).move_to(ORIGIN)
         C2_LINE_START = 9
@@ -75,12 +80,14 @@ class S07ABACode(BaseSlide):
         C5_LINE_START = 56
 
         c2 = get_asp_code('./code/aba-encoding/02-update-state-1.lp', font_size=FONT_SIZE_CODE, add_line_numbers=True, line_numbers_from=C2_LINE_START).move_to(ORIGIN)
+
         c3 = get_asp_code('./code/aba-encoding/03-update-state-2.lp', font_size=FONT_SIZE_CODE, add_line_numbers=True, line_numbers_from=C3_LINE_START)
         c4 = get_asp_code('./code/aba-encoding/04-update-state-3.lp', font_size=FONT_SIZE_CODE, add_line_numbers=True, line_numbers_from=C4_LINE_START)
         c5 = get_asp_code('./code/aba-encoding/05-step.lp', font_size=FONT_SIZE_CODE, add_line_numbers=True, line_numbers_from=C5_LINE_START).move_to(ORIGIN)
         
         s.next_slide()
-        replace_animate(s, diagram, c1)
+        replace_animate(s, VGroup(diagram, diagram.get_highlight('first')), c1)
+        # s.play(FadeOut(diagram.get_highlight('first')))
         s.next_slide()
 
         show_step(c1, [(3,3)])
@@ -89,11 +96,23 @@ class S07ABACode(BaseSlide):
 
         s.next_slide()
         show_step(c1, [])
-        animate_scroll(s, c1, c2)
+        replace_animate(s, c1, VGroup(diagram, diagram.get_highlight('first')))
         s.next_slide()
+        s.play(FadeOut(diagram.get_highlight('first')), FadeIn(diagram.get_highlight('second')))
+        s.next_slide()
+        replace_animate(s, VGroup(diagram, diagram.get_highlight('second')), c2)
+        s.next_slide()
+        show_step(c2, [(2,2)])
+        s.next_slide()
+        show_step(c2, [(3,3)])
+        s.next_slide()
+        show_step(c2, [])
 
         animate_scroll(s, c2, c3)
-
+        s.next_slide()
+        show_step(c3, [(1,1)])
+        s.next_slide()
+        show_step(c3, [(2,2)])
         s.next_slide()
         show_step(c3, [(11,20)])
         s.next_slide()
@@ -101,12 +120,34 @@ class S07ABACode(BaseSlide):
 
         animate_scroll(s, c3, c4)
         s.next_slide()
-        show_step(c4, [(10,11)])
+        # show_step(c4, [(1,1)])
+        # s.next_slide()
+        # show_step(c4, [])
+        replace_animate(s, c4, VGroup(diagram, diagram.get_highlight('second')))
+        s.next_slide()
+        s.play(FadeOut(diagram.get_highlight('second')), FadeIn(diagram.get_highlight('third')))
+        s.next_slide()
+        replace_animate(s, VGroup(diagram, diagram.get_highlight('third')), c4)
+        s.next_slide()
+        show_step(c4, [(10,10)])
         s.next_slide()
         show_step(c4, [])
-
-        animate_scroll(s, c4, c5)
-
+        replace_animate(s, c4, VGroup(diagram, diagram.get_highlight('third')))
+        s.next_slide()
+        s.play(FadeOut(diagram.get_highlight('third')), FadeIn(diagram.get_highlight('fourth')))
+        s.next_slide()
+        replace_animate(s,VGroup(diagram, diagram.get_highlight('fourth')), c4)
+        s.next_slide()
+        show_step(c4, [(11,11)])
+        s.next_slide()
+        show_step(c4, [(9,10)])
+        s.next_slide()
+        show_step(c4, [])
+        replace_animate(s, c4, VGroup(diagram, diagram.get_highlight('fourth')))
+        s.next_slide()
+        s.play(FadeOut(diagram.get_highlight('fourth')), FadeIn(diagram.get_highlight('fifth')))
+        s.next_slide()
+        replace_animate(s, VGroup(diagram, diagram.get_highlight('fifth')), c5)
         s.next_slide()
         show_step(c5, [(2,2)])
         s.next_slide()
