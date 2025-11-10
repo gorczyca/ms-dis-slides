@@ -53,7 +53,7 @@ class S01TwoPerspectives(BaseSlide):
             s.play(FadeIn(b, shift=0.2*RIGHT))
             s.next_slide()
 
-        arg_text = tex_paragraph(r'\textbf{Argument games:} discussion between proponent and opponent; provide dialectical justifications, support interaction, connected to dialogical models $\rightarrow$ useful for XAI').next_to(reasoning_views_text, DOWN, buff=BUFF*1.15, aligned_edge=LEFT)
+        arg_text = tex_paragraph(r'\textbf{Argument games:} discussion between proponent and opponent; provide \mbox{dialectical} justifications, support interaction, connected to dialogical models $\rightarrow$ useful for XAI').next_to(reasoning_views_text, DOWN, buff=BUFF*1.15, aligned_edge=LEFT)
 
         s.play(FadeIn(arg_text))
 
