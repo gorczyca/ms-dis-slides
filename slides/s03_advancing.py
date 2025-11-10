@@ -23,10 +23,10 @@ class S03Advancing(BaseSlide):
 
         items = [
             r'\textbf{ASP} widely used for implementing argumentation, but repeated grounding from scratch is costly in iterative scenarios',
-            r'\textbf{Multi-shot ASP} allows updating and re-solving $\rightarrow$ avoids unnecessary grounding overhead',
+            r'\textbf{Multi-shot ASP} allows updating and re-solving $\rightarrow$ avoids unnecessary \mbox{grounding} overhead',
             r'We present the \textbf{first use of multi-shot ASP} for argumentation games',
             r"Focus on \textbf{ABA dispute derivations} and \textbf{Dung's AFs}",
-            r'\textbf{Rule-based flexible ABA disputes} from [Diller, Gaggl, Gorczyca 2021], elaboration on [Toni 2013], [Craven, Toni 2016]',
+            r'\textbf{Rule-based flexible ABA disputes} from [Diller, Gaggl, Gorczyca 2021], \mbox{elaboration} on [Toni 2013], [Craven, Toni 2016]',
             r'\textbf{Multi-shot environment} provided by \texttt{clingo}~[Gebser et al. 2019]',
             # r"Offers a \textbf{declarative} and more streamlined implementation of argument games",
             # r"Provides a \textbf{general framework} for implementing and comparing argument games",
