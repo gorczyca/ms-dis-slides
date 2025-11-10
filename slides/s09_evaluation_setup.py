@@ -25,7 +25,7 @@ class S09EvaluationSetup(BaseSlide):
         solvers_items = [
             r'\textbf{MS-DIS} -- lightweight Multi-Shot ASP \textbf{dispute-based} solver',
             r'\textbf{flexABle} [Diller, Gaggl, Gorczyca 2022] -- state-of-the-art ABA \textbf{dispute-based} solver, written in Scala',
-            r'\textbf{aspforaba} [Lehtonen, Wallner, Järvisalo 2023] -- \textbf{reduction-based} one-shot ASP solver -- upper bound on performance',
+            r'\textbf{aspforaba} [Lehtonen, Wallner, Järvisalo 2023] -- \textbf{reduction-based} one-shot \mbox{ASP solver} -- upper bound on performance',
         ]
 
         bullets = VGroup(*[bullet_line(t) for t in solvers_items]).arrange(DOWN, aligned_edge=LEFT, buff=0.25).next_to(solvers_text, DOWN, aligned_edge=LEFT)
