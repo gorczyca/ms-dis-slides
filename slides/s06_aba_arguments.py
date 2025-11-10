@@ -53,7 +53,7 @@ class S06ABAArguments(BaseSlide):
         s.play(FadeIn(args))
 
         case_1 = bullet_line(r'$a \in \Args \text{ if } a \in \frA$', font_size=FONT_SIZE).next_to(args, DOWN, aligned_edge=LEFT, buff=VERTICAL_BUFF)
-        case_1_then = TexWrapper(r'\sffamily then $\conc(a)=a$, $\prem(a)=a$', font_size=FONT_SIZE).next_to(case_1, DOWN, aligned_edge=LEFT, buff=VERTICAL_BUFF).shift(HORIZONTAL_SHIFT)
+        case_1_then = TexWrapper(r'\sffamily then $\conc(a)=a$, $\asm(a)=a$', font_size=FONT_SIZE).next_to(case_1, DOWN, aligned_edge=LEFT, buff=VERTICAL_BUFF).shift(HORIZONTAL_SHIFT)
         s.next_slide()
 
         s.play(FadeIn(case_1, shift=.2*RIGHT))
@@ -73,7 +73,7 @@ class S06ABAArguments(BaseSlide):
 
         case_2 = bullet_line(r'$A = h \leftarrow A_1,\ldots,A_n \in \Args$', font_size=FONT_SIZE).next_to(case_1, DOWN, aligned_edge=LEFT, buff=0.75)
         case_2_if = TexWrapper(r'if $\set{A_1,\ldots,A_n}\subseteq \Args$ and $ h\leftarrow \conc(A_1),\ldots,\conc(A_n)$', font_size=FONT_SIZE).next_to(case_2, DOWN, aligned_edge=LEFT, buff=VERTICAL_BUFF).shift(HORIZONTAL_SHIFT)
-        case_2_then = TexWrapper(r'then $\conc(A)=h$, $\prem(A)=\prem(A_1)\cup\ldots\cup\prem(A_n)$', font_size=FONT_SIZE).next_to(case_2_if, DOWN, aligned_edge=LEFT, buff=VERTICAL_BUFF)
+        case_2_then = TexWrapper(r'then $\conc(A)=h$, $\asm(A)=\asm(A_1)\cup\ldots\cup\asm(A_n)$', font_size=FONT_SIZE).next_to(case_2_if, DOWN, aligned_edge=LEFT, buff=VERTICAL_BUFF)
 
         s.next_slide()
         s.play(FadeIn(case_2, shift=.2*RIGHT))
@@ -141,7 +141,7 @@ class S06ABAArguments(BaseSlide):
 
         att = TexWrapper(r'Define $\Att\subseteq \Args\times\Args$:', font_size=FONT_SIZE).next_to(case_2, DOWN, aligned_edge=LEFT, buff=1.5)
         att_1 = bullet_line(r'$\tuple{A_1,A_2}\in\Att$').next_to(att, DOWN, aligned_edge=LEFT, buff=VERTICAL_BUFF)
-        att_if_1 = TexWrapper(r'if $A_1,A_2\in\Args$, $a\in\prem(A_2)$, $\conc(A_1)=\bar{a}$', font_size=FONT_SIZE).next_to(att_1, DOWN, aligned_edge=LEFT, buff=VERTICAL_BUFF).shift(HORIZONTAL_SHIFT)
+        att_if_1 = TexWrapper(r'if $A_1,A_2\in\Args$, $a\in\asm(A_2)$, $\conc(A_1)=\bar{a}$', font_size=FONT_SIZE).next_to(att_1, DOWN, aligned_edge=LEFT, buff=VERTICAL_BUFF).shift(HORIZONTAL_SHIFT)
 
         s.next_slide()
         s.play(FadeIn(att, shift=.2*RIGHT))
