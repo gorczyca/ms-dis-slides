@@ -66,7 +66,7 @@ class S08ABADispute(BaseSlide):
 
         HOR_DIST = 0.5
 
-        s_node = Circle(radius=RADIUS, color=WHITE, stroke_opacity=0, fill_opacity=0).add(MathTexWrapper("s")).set_z_index(99).next_to(output_group, LEFT, buff=2)
+        s_node = Circle(radius=RADIUS, color=WHITE, stroke_opacity=0, fill_opacity=0).add(MathTexWrapper("s")).set_z_index(99).next_to(output_group, LEFT, buff=1.75)
 
         s.play(Create(s_node)); s.play(Circumscribe(s_node, color=GREEN))
         s.next_slide()
@@ -122,7 +122,7 @@ class S08ABADispute(BaseSlide):
         s.play(Create(VGroup(c, fixed_arrow_graph(c, t.get_left(), color=BLACK))))
         c_t = highlight_box(VGroup(c, t), stroke_width=STROKE_WIDTH, fill_opacity=1, fill_color=OPPONENT_COLOR, dashed=True, buff=0.1).set_z_index(5)
         s.play(DrawBorderThenFill(c_t))
-        opp_arg = highlight_box(VGroup(c_t, b, xa), buff=0.2, fill_color=OPPONENT_COLOR, dashed=False)
+        opp_arg = highlight_box(VGroup(c_t, b, xa), buff=0.3, fill_color=OPPONENT_COLOR, dashed=False)
         s.play(DrawBorderThenFill(opp_arg))
         s.next_slide()
 

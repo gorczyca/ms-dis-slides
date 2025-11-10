@@ -203,7 +203,7 @@ def make_dispute_diagram():
         VGroup(c_t_block, b, xa),
         fill_opacity=1,
         fill_color=OPPONENT_COLOR,
-        buff=0.2,
+        buff=0.3,
         dashed=False
     )
     # xc_p was set_z_index(4)
