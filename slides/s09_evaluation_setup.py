@@ -37,7 +37,7 @@ class S09EvaluationSetup(BaseSlide):
 
         setup = TexWrapper(r'Setup:', font_size=FONT_SIZE_TEXT).next_to(solvers_text, DOWN, buff=BUFF, aligned_edge=LEFT)
         setup_items = [
-            r"381/400 instances from ICCMA'23 ABA track (only those with known correct answers) containing 25-5000 atoms",
+            r"ICCMA'23 ABA track instances (containing 25-5000 atoms)",
             r'600s timeout'
         ]
 
